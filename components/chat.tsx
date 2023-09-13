@@ -34,8 +34,13 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   )
   const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
   const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
+  
+  // const api = '/api/chat'
+  const api = '/api/chartgpt'
+  
   const { messages, append, reload, stop, isLoading, input, setInput } =
     useChat({
+      api,
       initialMessages,
       id,
       body: {

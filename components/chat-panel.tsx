@@ -5,6 +5,7 @@ import { PromptForm } from '@/components/prompt-form'
 import { ButtonScrollToBottom } from '@/components/button-scroll-to-bottom'
 import { IconRefresh, IconStop } from '@/components/ui/icons'
 import { FooterText } from '@/components/footer'
+import { LinearProgress } from '@mui/material';
 
 export interface ChatPanelProps
   extends Pick<
@@ -72,6 +73,7 @@ export function ChatPanel({
           />
           <FooterText className="hidden sm:block" />
         </div>
+        {isLoading && <LinearProgress />}
       </div>
     </div>
   )

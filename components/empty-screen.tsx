@@ -34,7 +34,7 @@ const exampleMessages = [
 export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
   return (
     <div className="mx-auto max-w-2xl px-4">
-      <div className="rounded-lg border bg-background p-8">
+      <div className="rounded-lg bg-background p-8">
         {/* <img src="/property_guru.png" alt="Property Guru Logo" className='pb-8' /> */}
         <h1 className="mb-2 text-lg font-semibold">
           {/* Welcome to Next.js AI Chatbot! */}

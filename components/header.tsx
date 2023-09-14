@@ -23,7 +23,7 @@ export async function Header() {
   const session = await auth()
   return (
     <header className="sticky top-0 z-50 flex items-center justify-between w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
-      <div className="flex-shrink-0 flex items-center">
+      <div className="flex items-center z-10">
         {session?.user ? (
           <Sidebar>
             <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
@@ -52,10 +52,10 @@ export async function Header() {
           )}
         </div>
       </div>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <img src="property_guru_horizontal.svg" alt="Property Guru Logo" className="h-12 mx-auto" />
+      <div className="absolute inset-0 flex items-center justify-center z-0">
+        <img src="/property_guru_horizontal.svg" alt="Property Guru Logo" className="h-12 mx-auto" />
       </div>
-      <div className="flex-shrink-0 flex items-center justify-end space-x-2">
+      <div className="flex items-center justify-end space-x-2 z-10">
         {/* <a
           target="_blank"
           href="https://github.com/vercel/nextjs-ai-chatbot/"

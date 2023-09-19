@@ -8,8 +8,6 @@ import { cn } from '@/lib/utils'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { Providers } from '@/components/providers'
 import { Header } from '@/components/header'
-import getConfig from 'next/config'
-
 import { publicRuntimeConfig } from 'next.config'
 
 export const metadata: Metadata = {
@@ -51,7 +49,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <Header />
             <main className="flex flex-col flex-1 bg-muted/50">{children}</main>
           </div>
-          {/* <TailwindIndicator /> */}
+          <TailwindIndicator />
         </Providers>
       </body>
     </html>

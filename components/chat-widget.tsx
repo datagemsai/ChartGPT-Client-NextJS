@@ -9,8 +9,6 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { makeStyles } from '@mui/styles';
-import getConfig from 'next/config';
-import Image from 'next/image';
 
 import { publicRuntimeConfig } from 'next.config'
 import { ChatPanelProps } from '@/components/chat-panel';

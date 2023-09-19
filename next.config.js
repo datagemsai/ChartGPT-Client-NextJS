@@ -20,22 +20,23 @@ module.exports = {
   publicRuntimeConfig: {
     // Will be available on both server and client
     // const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
-    headerLogo: '/property_guru_horizontal.svg',
-    assistantLogo: '/property_guru.svg',
-    chatBotName: 'PropertyGuru Chat',
-    chatBotDescription: 'An AI-powered chatbot',
+    headerLogo: '/chartgpt/logo_chartgpt_horizontal.png',
+    assistantLogo: '/chartgpt/icon_chartgpt.png',
+    chatBotName: 'ChartGPT',
+    chatBotWelcomeMessage: 'Welcome to ChartGPT!',
+    chatBotDescription: 'Discover Insights with Conversational Analytics',
     chatBotExampleMessages: [
       {
-        heading: 'What is the average price of a 3 bedroom condo in Singapore?',
-        message: 'What is the average price of a 3 bedroom condo in Singapore?',
+        heading: 'Plot the average APR for the ***REMOVED*** protocol in the past 6 months.',
+        message: 'Plot the average APR for the ***REMOVED*** protocol in the past 6 months.',
       },
       {
-        heading: 'Create a chart of the average price of a 3 bedroom condo in Singapore over the past 5 years.',
-        message: 'Create a chart of the average price of a 3 bedroom condo in Singapore over the past 5 years.',
+        heading: 'Plot a bar chart of the USD lending volume for all protocols.',
+        message: 'Plot a bar chart of the USD lending volume for all protocols.',
       },
       {
-        heading: 'How many 3 bedroom condos are there for sale in Singapore?',
-        message: 'How many 3 bedroom condos are there for sale in Singapore?',
+        heading: 'Plot a stacked area chart of the USD lending volume for all protocols.',
+        message: 'Plot a stacked area chart of the USD lending volume for all protocols.',
       }
     ]
   },

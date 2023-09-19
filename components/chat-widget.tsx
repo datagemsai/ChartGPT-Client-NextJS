@@ -65,7 +65,7 @@ const ChatWidget = () => {
         >
         <div className={classes.flexContainer}>
           <img src={publicRuntimeConfig.assistantLogo} alt="Property Guru Logo" className={classes.logo} />
-          <Typography>PropertyGuru Chat</Typography>
+          <Typography>{publicRuntimeConfig.chatBotName}</Typography>
         </div>
         </AccordionSummary>
         <AccordionDetails className={classes.details}>

@@ -1,6 +1,6 @@
 <a href="https://chat.vercel.ai/">
   <img alt="Next.js 13 and app template Router-ready AI chatbot." src="https://chat.vercel.ai/opengraph-image.png">
-  <h1 align="center">PropertyGuru Chat</h1>
+  <h1 align="center">ChartGPT Chatbot</h1>
 </a>
 
 <p align="center">

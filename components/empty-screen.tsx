@@ -16,7 +16,7 @@ export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
         {/* <img src="/property_guru.png" alt="Property Guru Logo" className='pb-8' /> */}
         <h1 className="mb-2 text-lg font-semibold">
           {/* Welcome to Next.js AI Chatbot! */}
-          Welcome to PropertyGuru Chat!
+          {publicRuntimeConfig.chatBotWelcomeMessage}
         </h1>
         <p className="mb-2 leading-normal text-muted-foreground">
           {/* This is an open source AI chatbot app template built with{' '}

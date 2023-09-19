@@ -14,9 +14,6 @@ module.exports = {
       },
     ],
   },
-  serverRuntimeConfig: {
-    example: '',
-  },
   publicRuntimeConfig: {
     // Will be available on both server and client
     // const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()

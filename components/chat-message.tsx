@@ -1,5 +1,6 @@
 // Inspired by Chatbot-UI and modified to fit the needs of this project
 // @see https://github.com/mckaywrigley/chatbot-ui/blob/main/components/Chat/ChatMessage.tsx
+"use client";
 
 import { Message } from 'ai'
 import remarkGfm from 'remark-gfm'
@@ -11,7 +12,10 @@ import { MemoizedReactMarkdown } from '@/components/markdown'
 import { IconOpenAI, IconUser, IconPropertyGuru } from '@/components/ui/icons'
 import { ChatMessageActions } from '@/components/chat-message-actions'
 // import Plot from 'react-plotly.js'
-const Plotly = require('react-plotly.js');
+// const Plotly = require('react-plotly.js');
+import Plotly from "plotly.js";
+import createPlotlyComponent from "react-plotly.js/factory";
+const Plot = createPlotlyComponent(Plotly);
 
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -150,7 +154,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
               } else if (language === 'chart') {
                 const plotlyData: PlotlyData = JSON.parse(String(children[0]))
                 return (
-                  <Plotly.Plot
+                  <Plot
                     data={plotlyData.data}
                     layout={{
                       ...plotlyData.layout,

@@ -1,6 +1,5 @@
 import { nanoid } from '@/lib/utils'
 import { Chat } from '@/components/chat'
-import ChatWidget from '@/components/chat-widget'
 
 export const runtime = 'edge'
 
@@ -10,7 +9,7 @@ export default function IndexPage() {
   return (
     <>
       <Chat id={id} />
-      <ChatWidget />
+      {/* <ChatWidget /> */}
     </>
   )
 }

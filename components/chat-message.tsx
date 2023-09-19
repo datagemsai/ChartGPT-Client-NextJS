@@ -10,7 +10,8 @@ import { CodeBlock } from '@/components/ui/codeblock'
 import { MemoizedReactMarkdown } from '@/components/markdown'
 import { IconOpenAI, IconUser, IconPropertyGuru } from '@/components/ui/icons'
 import { ChatMessageActions } from '@/components/chat-message-actions'
-import Plot from 'react-plotly.js'
+// import Plot from 'react-plotly.js'
+const Plotly = require('react-plotly.js');
 
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -33,7 +34,7 @@ export interface ChatMessageProps {
 
 export interface PlotlyData {
   data: [{}]
-  layout: {}
+  layout: {titlefont: object}
 }
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
@@ -92,12 +93,16 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                 .replace(/table/, '(Sample of 10 rows)')
                 .replace(/sql/, '')
 
+              if (children.length === 0 || !children[0]) {
+                return null
+              }
+
               if (language === 'table') {
-                const pandasData = JSON.parse(children[0])
+                const pandasData = JSON.parse(String(children[0]))
   
                 const firstRow = pandasData?.[0];
                 const rows: GridRowsProp = pandasData 
-                  ? pandasData.map((row, index) => ({ id: index, ...row }))
+                  ? pandasData.map((row: any, index: number) => ({ id: index, ...row }))
                   : [];
                 const columns: GridColDef[] = firstRow 
                   ? Object.keys(firstRow).map(key => ({ field: key, headerName: key, width: 150 }))
@@ -143,9 +148,9 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                   </Accordion>
                 )
               } else if (language === 'chart') {
-                const plotlyData: PlotlyData = JSON.parse(children[0])
+                const plotlyData: PlotlyData = JSON.parse(String(children[0]))
                 return (
-                  <Plot
+                  <Plotly.Plot
                     data={plotlyData.data}
                     layout={{
                       ...plotlyData.layout,

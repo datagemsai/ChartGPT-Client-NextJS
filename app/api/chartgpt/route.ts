@@ -34,6 +34,12 @@ export async function POST(req: Request) {
     })
   })
 
+  if (!response.body || !response.ok) {
+    return new Response('API error', {
+      status: 500
+    })
+  }
+
   const reader = response.body.getReader()
   const decoder = new TextDecoder('utf-8')
   const encoder = new TextEncoder()

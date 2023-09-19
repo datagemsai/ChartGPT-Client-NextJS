@@ -18,6 +18,9 @@ import { ThemeToggle } from '@/components/theme-toggle'
 import { ClearHistory } from '@/components/clear-history'
 import { UserMenu } from '@/components/user-menu'
 import { LoginButton } from '@/components/login-button'
+import getConfig from 'next/config'
+
+import { publicRuntimeConfig } from 'next.config'
 
 export async function Header() {
   const session = await auth()
@@ -53,7 +56,7 @@ export async function Header() {
         </div>
       </div>
       <div className="absolute inset-0 flex items-center justify-center z-0">
-        <img src="/property_guru_horizontal.svg" alt="Property Guru Logo" className="h-12 mx-auto" />
+        <img src={publicRuntimeConfig.headerLogo} alt="Property Guru Logo" className="h-12 mx-auto" />
       </div>
       <div className="flex items-center justify-end space-x-2 z-10">
         {/* <a

@@ -9,6 +9,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { makeStyles } from '@mui/styles';
+import getConfig from 'next/config';
+
+import { publicRuntimeConfig } from 'next.config'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,7 +64,7 @@ const ChatWidget = () => {
           id="panel-header"
         >
         <div className={classes.flexContainer}>
-          <img src="/property_guru.svg" alt="Property Guru Logo" className={classes.logo} />
+          <img src={publicRuntimeConfig.assistantLogo} alt="Property Guru Logo" className={classes.logo} />
           <Typography>PropertyGuru Chat</Typography>
         </div>
         </AccordionSummary>

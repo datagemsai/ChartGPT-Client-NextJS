@@ -8,13 +8,16 @@ import { cn } from '@/lib/utils'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { Providers } from '@/components/providers'
 import { Header } from '@/components/header'
+import getConfig from 'next/config'
+
+import { publicRuntimeConfig } from 'next.config'
 
 export const metadata: Metadata = {
   title: {
-    default: 'PropertyGuru Chat',
-    template: `%s - PropertyGuru Chat`
+    default: publicRuntimeConfig.chatBotName,
+    template: `%s - ${publicRuntimeConfig.chatBotName}`
   },
-  description: 'An AI-powered chatbot',
+  description: publicRuntimeConfig.chatBotDescription,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' }

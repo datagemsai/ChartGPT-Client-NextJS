@@ -3,33 +3,11 @@ import { UseChatHelpers } from 'ai/react'
 import { Button } from '@/components/ui/button'
 import { ExternalLink } from '@/components/external-link'
 import { IconArrowRight } from '@/components/ui/icons'
+import getConfig from 'next/config'
 
-const exampleMessages = [
-  {
-    heading: 'What is the average price of a 3 bedroom condo in Singapore?',
-    message: 'What is the average price of a 3 bedroom condo in Singapore?',
-  },
-  {
-    heading: 'Create a chart of the average price of a 3 bedroom condo in Singapore over the past 5 years.',
-    message: 'Create a chart of the average price of a 3 bedroom condo in Singapore over the past 5 years.',
-  },
-  {
-    heading: 'How many 3 bedroom condos are there for sale in Singapore?',
-    message: 'How many 3 bedroom condos are there for sale in Singapore?',
-  }
-  // {
-  //   heading: 'Explain technical concepts',
-  //   message: `What is a "serverless function"?`
-  // },
-  // {
-  //   heading: 'Summarize an article',
-  //   message: 'Summarize the following article for a 2nd grader: \n'
-  // },
-  // {
-  //   heading: 'Draft an email',
-  //   message: `Draft an email to my boss about the following: \n`
-  // }
-]
+import { publicRuntimeConfig } from 'next.config'
+
+const exampleMessages = publicRuntimeConfig.chatBotExampleMessages
 
 export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
   return (

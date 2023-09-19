@@ -14,10 +14,10 @@ import { publicRuntimeConfig } from 'next.config'
 
 export const metadata: Metadata = {
   title: {
-    default: publicRuntimeConfig.chatBotName,
-    template: `%s - ${publicRuntimeConfig.chatBotName}`
+    default: publicRuntimeConfig?.chatBotName,
+    template: `%s - ${publicRuntimeConfig?.chatBotName}`
   },
-  description: publicRuntimeConfig.chatBotDescription,
+  description: publicRuntimeConfig?.chatBotDescription,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' }

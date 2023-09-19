@@ -20,6 +20,7 @@ import { useState } from 'react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { toast } from 'react-hot-toast'
+import ChatWidget from '@/components/chat-widget'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
@@ -66,6 +67,16 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         )}
       </div>
       <ChatPanel
+        id={id}
+        isLoading={isLoading}
+        stop={stop}
+        append={append}
+        reload={reload}
+        messages={messages}
+        input={input}
+        setInput={setInput}
+      />
+      <ChatWidget
         id={id}
         isLoading={isLoading}
         stop={stop}

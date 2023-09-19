@@ -10,8 +10,10 @@ import Typography from '@mui/material/Typography';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { makeStyles } from '@mui/styles';
 import getConfig from 'next/config';
+import Image from 'next/image';
 
 import { publicRuntimeConfig } from 'next.config'
+import { ChatPanelProps } from '@/components/chat-panel';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +53,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ChatWidget = () => {
+export function ChatWidget({
+  id,
+  isLoading,
+  stop,
+  append,
+  reload,
+  input,
+  setInput,
+  messages
+}: ChatPanelProps) {
   const classes = useStyles();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -64,8 +75,12 @@ const ChatWidget = () => {
           id="panel-header"
         >
         <div className={classes.flexContainer}>
-          <img src={publicRuntimeConfig.assistantLogo} alt="Property Guru Logo" className={classes.logo} />
-          <Typography>{publicRuntimeConfig.chatBotName}</Typography>
+          <img
+            src={publicRuntimeConfig?.assistantLogo}
+            alt="Property Guru Logo"
+            className={classes.logo}
+          />
+          <Typography>{publicRuntimeConfig?.chatBotName}</Typography>
         </div>
         </AccordionSummary>
         <AccordionDetails className={classes.details}>
@@ -81,9 +96,9 @@ const ChatWidget = () => {
                   role: 'user'
                 });
               }}
-              input={""}
-              setInput={() => {}}
-              isLoading={false}
+              input={input}
+              setInput={setInput}
+              isLoading={isLoading}
             />
           </div>
         </AccordionDetails>

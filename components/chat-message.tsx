@@ -163,7 +163,15 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                 )
               } else if (language === 'chart') {
                 console.log('Generating chart')
-                const plotlyData: PlotlyData = JSON.parse(String(children[0]))
+                
+                let plotlyData: PlotlyData
+                try {
+                  plotlyData = JSON.parse(typeof children[0] === 'string' ? children[0] : String(children[0]))
+                } catch (error) {
+                  console.log(`Error parsing JSON: ${error}`)
+                  return null
+                }
+
                 return (
                   <Plot
                     data={plotlyData.data}

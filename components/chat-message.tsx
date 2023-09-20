@@ -12,10 +12,7 @@ import { MemoizedReactMarkdown } from '@/components/markdown'
 import { IconOpenAI, IconUser, IconPropertyGuru } from '@/components/ui/icons'
 import { ChatMessageActions } from '@/components/chat-message-actions'
 // import Plot from 'react-plotly.js'
-// const Plotly = require('react-plotly.js');
-import Plotly from "plotly.js";
-import createPlotlyComponent from "react-plotly.js/factory";
-const Plot = createPlotlyComponent(Plotly);
+import dynamic from 'next/dynamic'
 
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -42,6 +39,7 @@ export interface PlotlyData {
 }
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
+  const Plot = dynamic(() => import('react-plotly.js'))
   return (
     <div
       className={cn('group relative mb-4 flex items-start md:-ml-12')}
@@ -55,7 +53,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
             : 'bg-background'
         )}
       >
-        {message.role === 'user' ? <IconUser /> : <IconPropertyGuru />}
+        {message.role === 'user' ? <IconUser /> : <IconOpenAI />}
       </div>
       <div className="flex-1 px-1 ml-4 space-y-2 overflow-hidden">
         <MemoizedReactMarkdown
@@ -98,10 +96,12 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                 .replace(/sql/, '')
 
               if (children.length === 0 || !children[0]) {
+                console.log('No children')
                 return null
               }
 
               if (language === 'table') {
+                console.log('Generating table')
                 const pandasData = JSON.parse(String(children[0]))
   
                 const firstRow = pandasData?.[0];
@@ -129,6 +129,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                   </Accordion>
                 )
               } else if (language === 'python' || language === 'sql') {
+                console.log('Generating code block')
                 return (
                   <Accordion>
                     <AccordionSummary
@@ -152,6 +153,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                   </Accordion>
                 )
               } else if (language === 'chart') {
+                console.log('Generating chart')
                 const plotlyData: PlotlyData = JSON.parse(String(children[0]))
                 return (
                   <Plot
@@ -168,6 +170,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                   />
                 )
               } else {
+                console.log(`Unhandled language: ${language}`)
                 return null
               }
             },

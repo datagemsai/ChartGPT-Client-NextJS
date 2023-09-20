@@ -39,7 +39,9 @@ export interface PlotlyData {
 }
 
 export function ChatMessage({ message, ...props }: ChatMessageProps) {
-  const Plot = dynamic(() => import('react-plotly.js'))
+  const Plot = dynamic(() => import('react-plotly.js'), {
+    ssr: false,
+  })
   return (
     <div
       className={cn('group relative mb-4 flex items-start md:-ml-12')}

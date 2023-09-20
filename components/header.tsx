@@ -44,9 +44,11 @@ export async function Header() {
           </Link>
         )}
         <div className="flex items-center">
-          <IconSeparator className="w-6 h-6 text-muted-foreground/50" />
+          <IconSeparator className="hidden sm:block w-6 h-6 text-muted-foreground/50" />
           {session?.user ? (
-            <UserMenu user={session.user} />
+            <div className='hidden sm:block'>
+              <UserMenu user={session.user} />
+            </div>
           ) : (
             <Button variant="link" asChild className="-ml-2">
               <Link href="/sign-in?callbackUrl=/">Login</Link>

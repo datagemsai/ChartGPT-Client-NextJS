@@ -7,7 +7,7 @@ import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
 import { log } from 'console'
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 
 export async function POST(req: Request) {

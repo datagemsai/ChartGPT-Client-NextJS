@@ -104,8 +104,9 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
 
               if (language === 'table') {
                 console.log('Generating table')
+                let pandasData: any
                 try {
-                  const pandasData = JSON.parse(JSON.stringify(children[0]))
+                  pandasData = JSON.parse(JSON.stringify(children[0]))
                 } catch (error) {
                   console.log(`Error parsing JSON: ${error}`)
                   return null

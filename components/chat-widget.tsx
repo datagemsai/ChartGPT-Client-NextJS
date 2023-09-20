@@ -75,7 +75,7 @@ export function ChatWidget({
         <div className={classes.flexContainer}>
           <img
             src={publicRuntimeConfig?.assistantLogo}
-            alt="Property Guru Logo"
+            alt="Logo"
             className={classes.logo}
           />
           <Typography>{publicRuntimeConfig?.chatBotName}</Typography>

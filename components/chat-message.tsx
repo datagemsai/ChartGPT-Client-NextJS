@@ -104,7 +104,12 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
 
               if (language === 'table') {
                 console.log('Generating table')
-                const pandasData = JSON.parse(String(children[0]))
+                try {
+                  const pandasData = JSON.parse(JSON.stringify(children[0]))
+                } catch (error) {
+                  console.log(`Error parsing JSON: ${error}`)
+                  return null
+                }
   
                 const firstRow = pandasData?.[0];
                 const rows: GridRowsProp = pandasData 

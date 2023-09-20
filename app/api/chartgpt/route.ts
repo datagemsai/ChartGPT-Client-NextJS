@@ -5,6 +5,7 @@ import { Configuration, OpenAIApi } from 'openai-edge'
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
+import { log } from 'console'
 
 export const runtime = 'edge'
 
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
   const decoder = new TextDecoder('utf-8')
   const encoder = new TextEncoder()
 
-  async function onCompletion(completion: String, type: String) {
+  async function onCompletion(completion: String) {
     const title = json.messages[0].content.substring(0, 100)
     const id = json.id ?? nanoid()
     const createdAt = Date.now()
@@ -77,60 +78,69 @@ export async function POST(req: Request) {
       const { done, value } = await reader.read()
 
       if (done) {
-        await onCompletion(completion, "")
+        await onCompletion(completion)
         controller.close()
       } else {
-        result += decoder.decode(value, {stream:true})
-        const lines = result.split('<end>\n')
-        result = lines.pop() || ''
+        const decoded_value = decoder.decode(value, {stream:true})
+        // Log first 10 and last 10 characters of the decoded value
+        console.log(`Received ${decoded_value.length} characters of data`)
+        // console.log(`First 10 characters: ${decoded_value.substring(0, 10)}`)
+        // console.log(`Last 10 characters: ${decoded_value.substring(decoded_value.length - 10)}`)
+        result += decoded_value
+        let output_value = ""
+
+        if (result.includes('<end>\n')) {
+          const lines = result.split('<end>\n');
+          result = lines.pop() || '';
   
-        for(const line of lines){
-          const chunk = line.replace(/^data: /, '');
-          const partial_response = JSON.parse(chunk)
-          const output = partial_response.outputs[0]
-          if (output?.value) {
-            let output_value = ""
-            if (output.type === "sql_query") {
-              output_value += output.description
-              output_value += "\n"
-              output_value += "```sql\n"
-              output_value += format(output.value, { language: 'bigquery' })
-              output_value += "\n```"
-              output_value += "\n"
-            } else if (output.type === "pandas_dataframe") {
-              // output_value += output.description
-              output_value += "\n"
-              output_value += "```table\n"
-              output_value += output.value
-              output_value += "\n```"
-              output_value += "\n"
-            } else if (output.type === "python_code") {
-              output_value += output.description
-              output_value += "\n"
-              output_value += "```python\n"
-              output_value += output.value
-              output_value += "\n```"
-              output_value += "\n"
-            } else if (["python_output", "string", "int", "float", "bool"].includes(output.type)) {
-              output_value += "```\n"
-              output_value += output.value
-              output_value += "\n```"
-              output_value += "\n"
-            } else if (output.type === "plotly_chart") {
-              output_value += "\n"
-              output_value += "```chart\n"
-              output_value += output.value
-              output_value += "\n```"
-              output_value += "\n"
-            } else {
-              console.log("Unknown or unhandled output type: " + output.type)
+          for(const line of lines){
+            console.log(`Received line of length ${line.length}`)
+            const chunk = line.replace(/^data: /, '');
+            const partial_response = JSON.parse(chunk)
+            const output = partial_response.outputs[0]
+            if (output?.value) {
+              console.log(`Processing output of type ${output.type}`)
+              if (output.type === "sql_query") {
+                output_value += output.description
+                output_value += "\n"
+                output_value += "```sql\n"
+                output_value += format(output.value, { language: 'bigquery' })
+                output_value += "\n```"
+                output_value += "\n"
+              } else if (output.type === "pandas_dataframe") {
+                // output_value += output.description
+                output_value += "\n"
+                output_value += "```table\n"
+                output_value += output.value
+                output_value += "\n```"
+                output_value += "\n"
+              } else if (output.type === "python_code") {
+                output_value += output.description
+                output_value += "\n"
+                output_value += "```python\n"
+                output_value += output.value
+                output_value += "\n```"
+                output_value += "\n"
+              } else if (["python_output", "string", "int", "float", "bool"].includes(output.type)) {
+                output_value += "```\n"
+                output_value += output.value
+                output_value += "\n```"
+                output_value += "\n"
+              } else if (output.type === "plotly_chart") {
+                output_value += "\n"
+                output_value += "```chart\n"
+                output_value += output.value
+                output_value += "\n```"
+                output_value += "\n"
+              } else {
+                console.log("Unknown or unhandled output type: " + output.type)
+              }
             }
-  
-            // await onCompletion(output_value, output.type)
-            completion += output_value
-            controller.enqueue(encoder.encode(output_value))
           }
         }
+        // await onCompletion(output_value)
+        completion += output_value
+        controller.enqueue(encoder.encode(output_value))
       }
     }
   })

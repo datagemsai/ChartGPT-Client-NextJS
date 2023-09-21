@@ -9,6 +9,8 @@ import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { Providers } from '@/components/providers'
 import { Header } from '@/components/header'
 import { publicRuntimeConfig } from 'next.config'
+import ReduxProvider from '@/lib/redux/redux-provider'
+
 
 export const metadata: Metadata = {
   title: {
@@ -45,9 +47,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <Toaster />
         <Providers attribute="class" defaultTheme="system" enableSystem>
           <div className="flex flex-col min-h-screen">
-            {/* @ts-ignore */}
-            <Header />
-            <main className="flex flex-col flex-1 bg-muted/50">{children}</main>
+            <ReduxProvider>
+              {/* @ts-ignore */}  
+              <Header />
+              <main className="flex flex-col flex-1 bg-muted/50">{children}</main>
+            </ReduxProvider>
           </div>
           <TailwindIndicator />
         </Providers>

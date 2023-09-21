@@ -8,6 +8,7 @@ export interface Chat extends Record<string, any> {
   path: string
   messages: Message[]
   sharePath?: string
+  dataSourceURL?: string
 }
 
 export type ServerActionResult<Result> = Promise<

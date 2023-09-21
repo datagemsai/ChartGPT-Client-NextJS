@@ -3,45 +3,79 @@ import { UseChatHelpers } from 'ai/react'
 import { Button } from '@/components/ui/button'
 import { ExternalLink } from '@/components/external-link'
 import { IconArrowRight } from '@/components/ui/icons'
-
+import { DataSourceCard } from '@/components/data-source-card'
+import { connect } from 'react-redux'
+import { DataSource, setDataSource } from '@/lib/redux/data-slice'
 import { publicRuntimeConfig } from 'next.config'
+import { AppState } from '@/lib/redux/store'
+import React from 'react'
 
-const exampleMessages = publicRuntimeConfig?.chatBotExampleMessages
+type EmptyScreenProps = {
+  dataSource: DataSource
+  setInput: UseChatHelpers['setInput']
+  dispatch: (arg0: any) => void
+};
 
-export function EmptyScreen({ setInput }: Pick<UseChatHelpers, 'setInput'>) {
-  return (
-    <div className="mx-auto max-w-2xl px-4">
-      <div className="rounded-lg bg-background p-8">
-        {/* <img src="/property_guru.png" alt="Property Guru Logo" className='pb-8' /> */}
-        <h1 className="mb-2 text-lg font-semibold">
-          {/* Welcome to Next.js AI Chatbot! */}
-          {publicRuntimeConfig?.chatBotWelcomeMessage}
-        </h1>
-        <p className="mb-2 leading-normal text-muted-foreground">
-          {/* This is an open source AI chatbot app template built with{' '}
-          <ExternalLink href="https://nextjs.org">Next.js</ExternalLink> and{' '}
-          <ExternalLink href="https://vercel.com/storage/kv">
-            Vercel KV
-          </ExternalLink>
-          . */}
-        </p>
-        <p className="leading-normal text-muted-foreground">
-          You can start a conversation here or try the following examples:
-        </p>
-        <div className="mt-4 flex flex-col items-start space-y-2">
-          {exampleMessages.map((message: any, index: number) => (
-            <Button
-              key={index}
-              variant="link"
-              className="h-auto p-0 text-base text-left"
-              onClick={() => setInput(message.message)}
-            >
-              <IconArrowRight className="mr-2 text-muted-foreground" />
-              {message.heading}
-            </Button>
-          ))}
+const mapStateToProps = (state: AppState) => {
+  return {
+      dataSource: state.data.dataSource
+  }
+}
+
+class EmptyScreen extends React.Component<EmptyScreenProps> {
+  constructor(props: any) {
+    super(props);
+  }
+
+  render() {
+    const dataSources: {[key: string]: DataSource} = publicRuntimeConfig?.dataSources ?? {}
+    const dataSource: DataSource = this.props.dataSource
+    const sampleQuestions: string[] = dataSource.sampleQuestions ?? []
+
+    const handleSelectDataSource = (dataSource: DataSource) => {
+      this.props.dispatch(setDataSource(dataSource))
+    }
+
+    return (
+      <div className="mx-auto max-w-2xl px-4">
+        <div className="rounded-lg bg-background p-8">
+          {/* <img src="/property_guru.png" alt="Property Guru Logo" className='pb-8' /> */}
+          <h1 className="mb-2 text-lg font-semibold">
+            {publicRuntimeConfig?.chatBotWelcomeMessage}
+          </h1>
+          <p className="mb-2 leading-normal text-muted-foreground">
+            Start by selecting a data source from one of our data providers:
+          </p>
+          {
+            Object.keys(dataSources).map((key: string, index: number) => (
+              <div key={index} className="mb-4">
+                <DataSourceCard
+                  selectDataSource={handleSelectDataSource}
+                  selected={key === dataSource.dataSourceURL}
+                  dataSource={dataSources[key]}
+                />
+              </div>
+            ))
+          }
+          <p className="leading-normal text-muted-foreground">
+            Then you can start a conversation or try the following examples:
+          </p>
+          <div className="mt-4 flex flex-col items-start space-y-2">
+            {sampleQuestions.map((question: string, index: number) => (
+              <Button
+                key={index}
+                variant="link"
+                className="h-auto p-0 text-base text-left"
+                onClick={() => this.props.setInput(question)}
+              >
+                <IconArrowRight className="mr-2 text-muted-foreground" />
+                {question}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
+export default connect(mapStateToProps)(EmptyScreen)

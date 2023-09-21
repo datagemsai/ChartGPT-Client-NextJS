@@ -6,13 +6,14 @@ import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
 import { log } from 'console'
+import { Message } from 'ai'
 
 export const runtime = 'edge'
 
 
 export async function POST(req: Request) {
   const json = await req.json()
-  const { messages, previewToken } = json
+  const { messages, previewToken, dataSourceURL } = json
   const userId = (await auth())?.user.id
 
   if (!userId) {
@@ -21,17 +22,18 @@ export async function POST(req: Request) {
     })
   }
 
-  const response = await fetch(`${process.env.CHARTGPT_API_HOST}/v1/ask_chartgpt`, {
+  const user_messages = messages.filter((message: any) => message.role === 'user')
+
+  const response = await fetch(`${process.env.CHARTGPT_API_HOST}/v1/ask_chartgpt/stream`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'X-API-KEY': process.env.CHARTGPT_API_KEY ?? '',
     },
     body: JSON.stringify({
-      messages,
-      data_source_url: process.env.CHARTGPT_DATA_SOURCE_URL,
+      messages: user_messages,
+      data_source_url: dataSourceURL,
       output_type: process.env.CHARTGPT_OUTPUT_TYPE,
-      stream: true,
     })
   })
 
@@ -56,13 +58,14 @@ export async function POST(req: Request) {
       userId,
       createdAt,
       path,
+      dataSourceURL,
       messages: [
         ...messages,
         {
           content: completion,
           role: 'assistant',
         }
-      ]
+      ],
     }
     await kv.hmset(`chat:${id}`, payload)
     await kv.zadd(`user:chat:${userId}`, {
@@ -71,7 +74,7 @@ export async function POST(req: Request) {
     })
   }
 
-  let result = ''
+  let buffer = ''
   let completion = ''
   const customStream = new ReadableStream({
     async pull(controller) {
@@ -81,25 +84,34 @@ export async function POST(req: Request) {
         await onCompletion(completion)
         controller.close()
       } else {
-        const decoded_value = decoder.decode(value, {stream:true})
-        // Log first 10 and last 10 characters of the decoded value
-        console.log(`Received ${decoded_value.length} characters of data`)
-        // console.log(`First 10 characters: ${decoded_value.substring(0, 10)}`)
-        // console.log(`Last 10 characters: ${decoded_value.substring(decoded_value.length - 10)}`)
-        result += decoded_value
+        const chunk = decoder.decode(value, {stream:true})
+        console.log(`Received ${chunk.length} characters of data`)
+        buffer += chunk
         let output_value = ""
 
-        if (result.includes('<end>\n')) {
-          const lines = result.split('<end>\n');
-          result = lines.pop() || '';
+        if (buffer.includes('<end>\n')) {
+          const results = buffer.split('<end>\n');
+          buffer = results.pop() || '';
   
-          for(const line of lines){
-            console.log(`Received line of length ${line.length}`)
-            const chunk = line.replace(/^data: /, '');
-            const partial_response = JSON.parse(chunk)
-            const output = partial_response.outputs[0]
-            if (output?.value) {
+          for(const raw_result of results){
+            console.log(`Received line of length ${raw_result.length}`)
+            const result = JSON.parse(raw_result.replace(/^data: /, ''))
+            const outputs = result.outputs
+            const attempts = result.attempts
+
+            if (!outputs.length) {
+              for (const attempt of attempts) {
+                if (attempt.outputs.length) {
+                  output_value += `I'm thinking... 🤔\n\n`
+                }
+              }
+            }
+
+            if (outputs.length && outputs[0]?.value) {
+              const output = outputs[0]
               console.log(`Processing output of type ${output.type}`)
+              console.debug(`First 10 characters of output: ${output.value.substring(0, 10)}`)
+              console.debug(`Last 10 characters of output: ${output.value.substring(output.value.length - 10)}`)
               if (output.type === "sql_query") {
                 output_value += output.description
                 output_value += "\n"
@@ -121,11 +133,12 @@ export async function POST(req: Request) {
                 output_value += output.value
                 output_value += "\n```"
                 output_value += "\n"
-              } else if (["python_output", "string", "int", "float", "bool"].includes(output.type)) {
-                output_value += "```\n"
-                output_value += output.value
-                output_value += "\n```"
-                output_value += "\n"
+              } else if (["string", "int", "float", "bool"].includes(output.type)) {
+                // "python_output"
+                // output_value += "```\n"
+                output_value += output.value.substring(0, 140)
+                // output_value += "\n```"
+                // output_value += "\n"
               } else if (output.type === "plotly_chart") {
                 output_value += "\n"
                 output_value += "```chart\n"
@@ -133,7 +146,7 @@ export async function POST(req: Request) {
                 output_value += "\n```"
                 output_value += "\n"
               } else {
-                console.log("Unknown or unhandled output type: " + output.type)
+                console.log(`Unknown or unhandled output type: ${output.type}`)
               }
             }
           }

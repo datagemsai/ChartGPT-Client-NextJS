@@ -21,6 +21,7 @@ import { UserMenu } from '@/components/user-menu'
 import { LoginButton } from '@/components/login-button'
 
 import { publicRuntimeConfig } from 'next.config'
+import DataSourceSelector from '@/components/data-source-selector'
 
 export async function Header() {
   const session = await auth()
@@ -63,6 +64,7 @@ export async function Header() {
         <img src={publicRuntimeConfig?.headerLogo} alt="Logo" className="h-12 mx-auto" />
       </div>
       <div className="flex items-center justify-end space-x-2 z-10">
+        <DataSourceSelector></DataSourceSelector>
         {/* <a
           target="_blank"
           href="https://github.com/vercel/nextjs-ai-chatbot/"

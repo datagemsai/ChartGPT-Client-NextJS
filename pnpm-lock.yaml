@@ -86,9 +86,6 @@ dependencies:
   next-auth:
     specifier: 0.0.0-manual.83c4ebd1
     version: 0.0.0-manual.83c4ebd1(next@13.4.7-canary.1)(react@18.2.0)
-  next-redux-wrapper:
-    specifier: ^8.1.0
-    version: 8.1.0(next@13.4.7-canary.1)(react-redux@8.1.2)(react@18.2.0)
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@13.4.7-canary.1)(react-dom@18.2.0)(react@18.2.0)
@@ -5329,18 +5326,6 @@ packages:
       '@auth/core': 0.0.0-manual.e9863699
       next: 13.4.7-canary.1(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
-    dev: false
-
-  /next-redux-wrapper@8.1.0(next@13.4.7-canary.1)(react-redux@8.1.2)(react@18.2.0):
-    resolution: {integrity: sha512-2hIau0hcI6uQszOtrvAFqgc0NkZegKYhBB7ZAKiG3jk7zfuQb4E7OV9jfxViqqojh3SEHdnFfPkN9KErttUKuw==}
-    peerDependencies:
-      next: '>=9'
-      react: '*'
-      react-redux: '*'
-    dependencies:
-      next: 13.4.7-canary.1(react-dom@18.2.0)(react@18.2.0)
-      react: 18.2.0
-      react-redux: 8.1.2(@types/react-dom@18.2.4)(@types/react@18.2.6)(react-dom@18.2.0)(react@18.2.0)(redux@4.2.1)
     dev: false
 
   /next-themes@0.2.1(next@13.4.7-canary.1)(react-dom@18.2.0)(react@18.2.0):

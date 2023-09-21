@@ -42,7 +42,6 @@
     "nanoid": "^4.0.2",
     "next": "13.4.7-canary.1",
     "next-auth": "0.0.0-manual.83c4ebd1",
-    "next-redux-wrapper": "^8.1.0",
     "next-themes": "^0.2.1",
     "openai-edge": "^0.5.1",
     "plotly.js": "^2.26.0",

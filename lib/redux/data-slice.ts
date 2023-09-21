@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "@/lib/redux/store";
-import { HYDRATE } from "next-redux-wrapper";
+// import { HYDRATE } from "next-redux-wrapper";
 import { publicRuntimeConfig } from 'next.config'
 
 // Type for our state

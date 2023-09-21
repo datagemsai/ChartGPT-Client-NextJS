@@ -21,14 +21,6 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { DataGrid, GridRowsProp, GridColDef } from '@mui/x-data-grid';
 
-export declare type CustomMessage = {
-  id: string;
-  createdAt?: Date;
-  content: string;
-  role: 'system' | 'user' | 'assistant';
-  type: string;
-};
-
 export interface ChatMessageProps {
   message: Message
 }
@@ -94,7 +86,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
 
               const title_secondary = language
                 .replace(/python/, '')
-                .replace(/table/, '(Sample of 10 rows)')
+                .replace(/table/, '')
                 .replace(/sql/, '')
 
               if (children.length === 0 || !children[0]) {

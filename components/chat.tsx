@@ -5,7 +5,7 @@ import { useChat, type Message } from 'ai/react'
 import { cn } from '@/lib/utils'
 import { ChatList } from '@/components/chat-list'
 import { ChatPanel } from '@/components/chat-panel'
-import { EmptyScreen } from '@/components/empty-screen'
+import EmptyScreen from '@/components/empty-screen'
 import { ChatScrollAnchor } from '@/components/chat-scroll-anchor'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
 import {
@@ -21,6 +21,8 @@ import { Button } from './ui/button'
 import { Input } from './ui/input'
 import { toast } from 'react-hot-toast'
 import ChatWidget from '@/components/chat-widget'
+import { useSelector } from 'react-redux'
+import { DataSource, selectDataSource } from '@/lib/redux/data-slice'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {
@@ -35,6 +37,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
   )
   const [previewTokenDialog, setPreviewTokenDialog] = useState(IS_PREVIEW)
   const [previewTokenInput, setPreviewTokenInput] = useState(previewToken ?? '')
+  const dataSource: DataSource = useSelector(selectDataSource)
   
   // const api = '/api/chat'
   const api = '/api/chartgpt'
@@ -46,7 +49,8 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
       id,
       body: {
         id,
-        previewToken
+        previewToken,
+        dataSourceURL: dataSource.dataSourceURL,
       },
       onResponse(response) {
         if (response.status === 401) {
@@ -76,7 +80,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         input={input}
         setInput={setInput}
       />
-      <div className='hidden md:block'>
+      {/* <div className='hidden md:block'>
         <ChatWidget
           id={id}
           isLoading={isLoading}
@@ -87,7 +91,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
           input={input}
           setInput={setInput}
         />
-      </div>
+      </div> */}
 
       <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>
         <DialogContent>

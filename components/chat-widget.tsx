@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { PromptForm } from '@/components/prompt-form';
-import { EmptyScreen } from '@/components/empty-screen';
+import EmptyScreen from '@/components/empty-screen';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';

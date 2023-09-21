@@ -26,8 +26,8 @@ import DataSourceSelector from '@/components/data-source-selector'
 export async function Header() {
   const session = await auth()
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between w-full h-16 px-4 border-b shrink-0 bg-gradient-to-b from-background/10 via-background/50 to-background/80 backdrop-blur-xl">
-      <div className="flex items-center z-10">
+    <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center justify-between border-b bg-gradient-to-b from-background/10 via-background/50 to-background/80 px-4 backdrop-blur-xl">
+      <div className="z-10 flex items-center">
         {session?.user ? (
           <Sidebar>
             <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
@@ -43,12 +43,12 @@ export async function Header() {
           <Link href="/" target="_blank" rel="nofollow">
             {/* <IconNextChat className="w-6 h-6 mr-2 dark:hidden" inverted /> */}
             {/* <IconNextChat className="hidden w-6 h-6 mr-2 dark:block" /> */}
-            <IconBot className="w-6 h-6 mr-2 dark:hidden" />
-            <IconBot className="hidden w-6 h-6 mr-2 dark:block" />
+            <IconBot className="mr-2 h-6 w-6 dark:hidden" />
+            <IconBot className="mr-2 hidden h-6 w-6 dark:block" />
           </Link>
         )}
         <div className="flex items-center">
-          <IconSeparator className="hidden sm:block w-6 h-6 text-muted-foreground/50" />
+          <IconSeparator className="hidden h-6 w-6 text-muted-foreground/50 sm:block" />
           {session?.user ? (
             <div className='hidden sm:block'>
               <UserMenu user={session.user} />
@@ -60,10 +60,10 @@ export async function Header() {
           )}
         </div>
       </div>
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-        <img src={publicRuntimeConfig?.headerLogo} alt="Logo" className="h-12 mx-auto" />
+      <div className="absolute inset-0 z-0 flex items-center justify-center">
+        <img src={publicRuntimeConfig?.headerLogo} alt="Logo" className="mx-auto h-12" />
       </div>
-      <div className="flex items-center justify-end space-x-2 z-10">
+      <div className="z-10 flex items-center justify-end space-x-2">
         <DataSourceSelector></DataSourceSelector>
         {/* <a
           target="_blank"

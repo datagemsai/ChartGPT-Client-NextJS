@@ -65,7 +65,7 @@ class EmptyScreen extends React.Component<EmptyScreenProps> {
               <Button
                 key={index}
                 variant="link"
-                className="h-auto p-0 text-base text-left"
+                className="h-auto p-0 text-left text-base"
                 onClick={() => this.props.setInput(question)}
               >
                 <IconArrowRight className="mr-2 text-muted-foreground" />

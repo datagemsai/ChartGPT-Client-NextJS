@@ -8,7 +8,7 @@ import { format } from 'sql-formatter'
 import { log } from 'console'
 import { Message } from 'ai'
 
-export const runtime = 'edge'
+// export const runtime = 'edge'
 
 
 export async function POST(req: Request) {

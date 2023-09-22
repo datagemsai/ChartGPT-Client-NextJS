@@ -21,12 +21,12 @@ module.exports = {
     assistantLogo: '/chartgpt/icon_chartgpt.png',
     chatBotName: 'ChartGPT',
     chatBotWelcomeMessage: 'Welcome to ChartGPT!',
-    chatBotDescription: 'Discover Insights with Conversational Analytics',
+    chatBotDescription: 'Discover insights with conversational analytics',
     dataSources: {
       'bigquery/chartgpt-staging/metaquants_nft_finance_aggregator/p2p_and_p2pool_loan_data_borrow': {
         dataSourceName: 'MetaQuants NFT Finance Aggregator',
         dataSourceDescription: `
-        Leverage the MetaQuants NFT Finance Aggregator data source to gain valuable insights into NFT loan history,
+        Leverage the MetaQuants NFT Finance Aggregator dataset to gain valuable insights into NFT loan history,
         outstanding loan indicators, and activity on both P2Peer and P2Pool protocols.
         The dataset currently includes a range of leading protocols, including X2Y2, Pine, BendDAO, ***REMOVED***, Arcade, and JPEGD.
         `,

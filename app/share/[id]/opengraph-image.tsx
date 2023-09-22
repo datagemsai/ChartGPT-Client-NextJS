@@ -13,13 +13,23 @@ export const size = {
 
 export const contentType = 'image/png'
 
-const interRegular = fetch(
-  new URL('../../../assets/fonts/Inter-Regular.woff', import.meta.url)
-).then(res => res.arrayBuffer())
+// const interRegular = fetch(
+//   new URL('../../../assets/fonts/Inter-Regular.woff', import.meta.url)
+// ).then(res => res.arrayBuffer())
 
-const interBold = fetch(
-  new URL('../../../assets/fonts/Inter-Bold.woff', import.meta.url)
-).then(res => res.arrayBuffer())
+const interRegular = async () => {
+  const res = await fetch( new URL('@/fonts/Inter-Regular.woff', import.meta.url) );
+  return await res.arrayBuffer();
+};
+
+// const interBold = fetch(
+//   new URL('../../../assets/fonts/Inter-Bold.woff', import.meta.url)
+// ).then(res => res.arrayBuffer())
+
+const interBold = async () => {
+  const res = await fetch( new URL('@/fonts/Inter-Bold.woff', import.meta.url) );
+  return await res.arrayBuffer();
+};
 
 interface ImageProps {
   params: {
@@ -102,13 +112,13 @@ export default async function Image({ params }: ImageProps) {
       fonts: [
         {
           name: 'Inter',
-          data: await interRegular,
+          data: await interRegular(),
           style: 'normal',
           weight: 400
         },
         {
           name: 'Inter',
-          data: await interBold,
+          data: await interBold(),
           style: 'normal',
           weight: 700
         }

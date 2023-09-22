@@ -55,8 +55,8 @@ export async function Header() {
           )}
         </div>
       </div>
-      <div className="hidden absolute inset-0 z-0 flex items-center justify-center md:block">
-        <img src="/chartgpt/logo_chartgpt_horizontal.png" alt="Logo" className="mx-auto h-12" />
+      <div className="absolute inset-0 z-0 flex items-center justify-center">
+        <img src="/chartgpt/logo_chartgpt_horizontal.png" alt="Logo" className="hidden mx-auto h-12 md:block" />
       </div>
       <div className="z-10 flex items-center justify-end space-x-2">
         <DataSourceSelector />

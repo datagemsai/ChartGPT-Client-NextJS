@@ -55,6 +55,24 @@ module.exports = {
           'Plot all the metrics over the last 30 days',
         ]
       },
+      'bigquery/chartgpt-staging/crypto_ethereum/transactions_sample': {
+        dataSourceName: 'Ethereum Blockchain Transactions',
+        dataSourceDescription: `
+        Explore Ethereum blockchain transaction sample data.
+
+        This dataset is part of a larger effort to make cryptocurrency data available in BigQuery
+        through the Google Cloud Public Datasets program.
+        `,
+        dataSourceURL: 'bigquery/chartgpt-staging/crypto_ethereum/transactions_sample',
+        dataProviderName: 'Google Cloud Public Datasets program',
+        dataProviderWebsite: 'https://console.cloud.google.com/marketplace/product/ethereum/crypto-ethereum-blockchain',
+        dataProviderImage: '/data_providers/ethereum.png',
+        sampleQuestions: [
+          'What data is available?',
+          'Perform exploratory data analysis.',
+          'Plot the number of transactions over time.',
+        ]
+      },
       'bigquery/chartgpt-staging/crypto_ethereum/contracts': {
         dataSourceName: 'Ethereum Blockchain Contracts',
         dataSourceDescription: `
@@ -73,24 +91,6 @@ module.exports = {
           'Plot the number of ERC20 and ERC721 contracts over time.',
         ]
       },
-      // 'bigquery/chartgpt-staging/crypto_ethereum/transactions_sample': {
-      //   dataSourceName: 'Ethereum Blockchain Transactions',
-      //   dataSourceDescription: `
-      //   Explore Ethereum blockchain transaction sample data.
-
-      //   This dataset is part of a larger effort to make cryptocurrency data available in BigQuery
-      //   through the Google Cloud Public Datasets program.
-      //   `,
-      //   dataSourceURL: 'bigquery/chartgpt-staging/crypto_ethereum/transactions_sample',
-      //   dataProviderName: 'Google Cloud Public Datasets program',
-      //   dataProviderWebsite: 'https://console.cloud.google.com/marketplace/product/ethereum/crypto-ethereum-blockchain',
-      //   dataProviderImage: '/data_providers/ethereum.png',
-      //   sampleQuestions: [
-      //     'What data is available?',
-      //     'Perform exploratory data analysis.',
-      //     'Plot the number of transactions over time.',
-      //   ]
-      // },
     },
   },
 };

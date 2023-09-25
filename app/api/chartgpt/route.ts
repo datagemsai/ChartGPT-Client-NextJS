@@ -89,12 +89,12 @@ export async function POST(req: Request) {
         buffer += chunk
         let output_value = ""
 
-        if (buffer.includes('<end>\n')) {
-          const results = buffer.split('<end>\n');
+        if (buffer.includes('<end>\n\n')) {
+          const results = buffer.split('<end>\n\n');
           buffer = results.pop() || '';
   
           for(const raw_result of results){
-            const result = JSON.parse(raw_result.replace(/^data: /, ''))
+            const result = JSON.parse(raw_result.trim().replace(/^data: /, ''))
             console.log(`${result.id}: Received result of length ${raw_result.length}`)
 
             const outputs = result.outputs

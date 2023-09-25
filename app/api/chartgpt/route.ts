@@ -94,8 +94,9 @@ export async function POST(req: Request) {
           buffer = results.pop() || '';
   
           for(const raw_result of results){
-            console.log(`Received line of length ${raw_result.length}`)
             const result = JSON.parse(raw_result.replace(/^data: /, ''))
+            console.log(`${result.id}: Received line of length ${raw_result.length}`)
+
             const outputs = result.outputs
             const attempts = result.attempts
 
@@ -109,9 +110,9 @@ export async function POST(req: Request) {
 
             if (outputs.length && outputs[0]?.value) {
               const output = outputs[0]
-              console.log(`Processing output of type ${output.type}`)
-              console.debug(`First 10 characters of output: ${output.value.substring(0, 10)}`)
-              console.debug(`Last 10 characters of output: ${output.value.substring(output.value.length - 10)}`)
+              console.log(`${result.id}: Processing output of type ${output.type}`)
+              console.debug(`${result.id}: First 10 characters of output: ${output.value.substring(0, 10)}`)
+              console.debug(`${result.id}: Last 10 characters of output: ${output.value.substring(output.value.length - 10)}`)
               if (output.type === "sql_query") {
                 output_value += output.description
                 output_value += "\n"
@@ -146,7 +147,7 @@ export async function POST(req: Request) {
                 output_value += "\n```"
                 output_value += "\n"
               } else {
-                console.log(`Unknown or unhandled output type: ${output.type}`)
+                console.log(`${result.id}: Unknown or unhandled output type: ${output.type}`)
               }
             }
           }

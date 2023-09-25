@@ -95,7 +95,7 @@ export async function POST(req: Request) {
   
           for(const raw_result of results){
             const result = JSON.parse(raw_result.replace(/^data: /, ''))
-            console.log(`${result.id}: Received line of length ${raw_result.length}`)
+            console.log(`${result.id}: Received result of length ${raw_result.length}`)
 
             const outputs = result.outputs
             const attempts = result.attempts

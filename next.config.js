@@ -66,7 +66,7 @@ module.exports = {
         dataSourceURL: 'bigquery/chartgpt-staging/crypto_ethereum/transactions_sample',
         dataProviderName: 'Google Cloud Public Datasets program',
         dataProviderWebsite: 'https://console.cloud.google.com/marketplace/product/ethereum/crypto-ethereum-blockchain',
-        dataProviderImage: '/data_providers/ethereum.png',
+        dataProviderImage: '', // '/data_providers/ethereum.png'
         sampleQuestions: [
           'What data is available?',
           'Perform exploratory data analysis.',
@@ -84,7 +84,7 @@ module.exports = {
         dataSourceURL: 'bigquery/chartgpt-staging/crypto_ethereum/contracts',
         dataProviderName: 'Google Cloud Public Datasets program',
         dataProviderWebsite: 'https://console.cloud.google.com/marketplace/product/ethereum/crypto-ethereum-blockchain',
-        dataProviderImage: '/data_providers/ethereum.png',
+        dataProviderImage: '', // '/data_providers/ethereum.png'
         sampleQuestions: [
           'What data is available?',
           'Perform exploratory data analysis.',

@@ -128,8 +128,8 @@ export async function POST(req: Request): Promise<Response> {
       // ],
     }
     await kv.hmset(`chat:${id}`, payload)
-    const exists = await kv.exists(`chat:${id}:messages`)
-    if (exists) {
+    const messages_exist = await kv.exists(`chat:${id}:messages`)
+    if (messages_exist) {
       await kv.rpush(`chat:${id}:messages`, JSON.stringify({
         content: completion,
         role: 'assistant',

@@ -152,14 +152,21 @@ export async function POST(req: Request): Promise<Response> {
     const encoder = new TextEncoder()
     const decoder = new TextDecoder()
 
-    let counter = 0
     let completion = ''
 
     const stream = new ReadableStream({
       async start(controller) {
         async function onParse(event: ParsedEvent | ReconnectInterval): Promise<void> {
+          console.log(event)
           if (event.type === "event") {
             const data = event.data;
+            if (event.event === "stream_start"){
+              console.log(`Stream has started`)
+              const output_value = 'Coming right up! 🪄\n\n';
+              const queue = encoder.encode(output_value);
+              completion += output_value;
+              controller.enqueue(queue);
+            }
             if (data === "[DONE]") {
               await onCompletion(
                 json,
@@ -177,7 +184,6 @@ export async function POST(req: Request): Promise<Response> {
               const queue = encoder.encode(output_value);
               completion += output_value;
               controller.enqueue(queue);
-              counter++;
             } catch (e) {
               controller.error(e);
             }

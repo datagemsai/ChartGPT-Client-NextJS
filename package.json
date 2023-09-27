@@ -38,6 +38,7 @@
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
+    "eventsource-parser": "^1.1.1",
     "focus-trap-react": "^10.2.1",
     "nanoid": "^4.0.2",
     "next": "13.5.2",

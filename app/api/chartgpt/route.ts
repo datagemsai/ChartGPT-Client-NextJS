@@ -18,7 +18,7 @@ function parseChartGPTResult(result: any): string {
   const outputs = result.outputs
   const attempts = result.attempts
 
-  if (!outputs.length) {
+  if (outputs && !outputs.length) {
     for (const attempt of attempts) {
       if (attempt.outputs.length) {
         output_value += `I'm thinking... 🤔\n\n`
@@ -26,7 +26,7 @@ function parseChartGPTResult(result: any): string {
     }
   }
 
-  if (outputs.length && outputs[0]?.value) {
+  if (outputs?.length && outputs[0]?.value) {
     const output = outputs[0]
     console.log(`${result.id}: Processing output of type ${output.type}`)
     console.debug(`${result.id}: First 10 characters of output: ${output.value.substring(0, 10)}`)
@@ -179,7 +179,7 @@ export async function POST(req: Request): Promise<Response> {
             }
             try {
               const result = JSON.parse(data);
-              const output_value = parseChartGPTResult(result)
+              const output_value = result.id ? parseChartGPTResult(result) : '';
               const queue = encoder.encode(output_value);
               completion += output_value;
               controller.enqueue(queue);

@@ -6,6 +6,7 @@ import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
 
 export const runtime = 'edge'
+export const dynamic = 'force-dynamic'
 
 
 function parseChartGPTResult(result: any): string {

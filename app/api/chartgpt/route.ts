@@ -4,6 +4,7 @@ import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
+import { StreamingTextResponse } from 'ai'
 
 export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
@@ -170,7 +171,8 @@ export async function POST(req: Request): Promise<Response> {
     },
   });
 
-  return new Response(stream, {
-    headers: { 'Content-Type': 'text/html; charset=utf-8' },
-  })
+  // return new Response(stream, {
+  //   headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  // })
+  return new StreamingTextResponse(stream)
 }

@@ -90,24 +90,29 @@ async function onCompletion(
     createdAt,
     path,
     dataSourceURL,
-    // messages: [
-    //   ...messages,
-    //   {
-    //     content: completion,
-    //     role: 'assistant',
-    //   }
-    // ],
+    messages: [
+      ...messages,
+      {
+        content: completion,
+        role: 'assistant',
+      }
+    ],
   }
   await kv.hmset(`chat:${id}`, payload)
-  const messages_exist = await kv.exists(`chat:${id}:messages`)
-  if (messages_exist) {
-    await kv.rpush(`chat:${id}:messages`, JSON.stringify({
-      content: completion,
-      role: 'assistant',
-    }))
-  } else {
-    await messages.map((message: any) => kv.rpush(`chat:${id}:messages`, JSON.stringify(message)))
-  }
+  // const messages_exist = await kv.exists(`chat:${id}:messages`)
+  // if (messages_exist) {
+  //   await kv.lpush(`chat:${id}:messages`, {
+  //     content: completion,
+  //     role: 'assistant',
+  //   })
+  // } else {
+  //   await kv.set(`chat:${id}:messages`, [
+  //     ...messages, {
+  //       content: completion,
+  //       role: 'assistant',
+  //     }
+  //   ])
+  // }
   await kv.zadd(`user:chat:${userId}`, {
     score: createdAt,
     member: `chat:${id}`

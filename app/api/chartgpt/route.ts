@@ -119,15 +119,24 @@ export async function POST(req: Request): Promise<Response> {
       createdAt,
       path,
       dataSourceURL,
-      messages: [
-        ...messages,
-        {
-          content: completion,
-          role: 'assistant',
-        }
-      ],
+      // messages: [
+      //   ...messages,
+      //   {
+      //     content: completion,
+      //     role: 'assistant',
+      //   }
+      // ],
     }
     await kv.hmset(`chat:${id}`, payload)
+    const exists = await kv.exists(`chat:${id}:messages`)
+    if (exists) {
+      await kv.rpush(`chat:${id}:messages`, JSON.stringify({
+        content: completion,
+        role: 'assistant',
+      }))
+    } else {
+      await messages.map((message: any) => kv.rpush(`chat:${id}:messages`, JSON.stringify(message)))
+    }
     await kv.zadd(`user:chat:${userId}`, {
       score: createdAt,
       member: `chat:${id}`

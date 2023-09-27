@@ -1,14 +1,9 @@
 import { kv } from '@vercel/kv'
-import { OpenAIStream, StreamingTextResponse } from 'ai'
-import { Configuration, OpenAIApi } from 'openai-edge'
 import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
-import { log } from 'console'
-import { Message } from 'ai'
-import { output } from '@/next.config'
 
 export const runtime = 'edge'
 
@@ -174,5 +169,7 @@ export async function POST(req: Request): Promise<Response> {
     },
   });
 
-  return new Response(stream)
+  return new Response(stream, {
+    headers: { 'Content-Type': 'text/html; charset=utf-8' },
+  })
 }

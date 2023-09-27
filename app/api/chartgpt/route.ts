@@ -157,7 +157,6 @@ export async function POST(req: Request): Promise<Response> {
     const stream = new ReadableStream({
       async start(controller) {
         async function onParse(event: ParsedEvent | ReconnectInterval): Promise<void> {
-          console.log(event)
           if (event.type === "event") {
             const data = event.data;
             if (event.event === "stream_start"){

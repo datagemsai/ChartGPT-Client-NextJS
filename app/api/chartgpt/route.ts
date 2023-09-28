@@ -165,9 +165,7 @@ export async function POST(req: Request): Promise<Response> {
 
         async function keepAlive() {
           while (!streamEnded) {
-            const output_value = '';
-            const queue = encoder.encode(output_value);
-            controller.enqueue(queue);
+            controller.enqueue('');
             await new Promise(resolve => setTimeout(resolve, 15_000));
           }
         }

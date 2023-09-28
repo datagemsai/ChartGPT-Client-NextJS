@@ -165,7 +165,7 @@ export async function POST(req: Request): Promise<Response> {
 
         async function keepAlive() {
           while (!streamEnded) {
-            const output_value = ' ';
+            const output_value = '';
             const queue = encoder.encode(output_value);
             controller.enqueue(queue);
             await new Promise(resolve => setTimeout(resolve, 15_000));
@@ -232,12 +232,12 @@ export async function POST(req: Request): Promise<Response> {
       },
     });
 
-    // return new Response(stream, {
-    //   headers: {
-    //     'Content-Type': 'text/html; charset=utf-8',
-    //   },
-    // })
-    return new StreamingTextResponse(stream)
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+      },
+    })
+    // return new StreamingTextResponse(stream)
   } catch (error) {
     console.error(error)
     return new Response('API error', {

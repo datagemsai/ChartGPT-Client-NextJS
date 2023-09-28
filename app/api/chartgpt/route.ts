@@ -98,7 +98,16 @@ async function onCompletion(
       }
     ],
   }
-  await kv.hmset(`chat:${id}`, payload)
+  // Catch UpstashError
+  try {
+    await kv.hmset(`chat:${id}`, payload)
+    await kv.zadd(`user:chat:${userId}`, {
+      score: createdAt,
+      member: `chat:${id}`
+    })
+  } catch (error) {
+    console.error(error)
+  }
   // const messages_exist = await kv.exists(`chat:${id}:messages`)
   // if (messages_exist) {
   //   await kv.lpush(`chat:${id}:messages`, {
@@ -113,10 +122,6 @@ async function onCompletion(
   //     }
   //   ])
   // }
-  await kv.zadd(`user:chat:${userId}`, {
-    score: createdAt,
-    member: `chat:${id}`
-  })
 }
 
 
@@ -132,6 +137,7 @@ export async function POST(req: Request): Promise<Response> {
   }
 
   const user_messages = messages.filter((message: any) => message.role === 'user')
+  // const assistant_messages = messages.filter((message: any) => message.role === 'assistant')
 
   try {
     const response = await fetch(`${process.env.CHARTGPT_API_HOST}/v1/ask_chartgpt/stream`, {

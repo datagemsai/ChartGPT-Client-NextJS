@@ -170,8 +170,19 @@ export async function POST(req: Request): Promise<Response> {
               const queue = encoder.encode(output_value);
               completion += output_value;
               controller.enqueue(queue);
-            }
-            if (data === "[DONE]") {
+            } else if (event.event === "keep-alive"){
+              console.log(`Keep-alive event received`)
+              const output_value = '.';
+              const queue = encoder.encode(output_value);
+              completion += output_value;
+              controller.enqueue(queue);
+            } else if (event.event === "stream_end" || data === "[DONE]"){
+              console.log(`Stream has ended`)
+              const output_value = 'All done! 🎉\n\n';
+              const queue = encoder.encode(output_value);
+              completion += output_value;
+              controller.enqueue(queue);
+
               await onCompletion(
                 json,
                 messages,
@@ -181,15 +192,16 @@ export async function POST(req: Request): Promise<Response> {
               );
               controller.close();
               return;
-            }
-            try {
-              const result = JSON.parse(data);
-              const output_value = result.id ? parseChartGPTResult(result) : '';
-              const queue = encoder.encode(output_value);
-              completion += output_value;
-              controller.enqueue(queue);
-            } catch (e) {
-              controller.error(e);
+            } else {
+              try {
+                const result = JSON.parse(data);
+                const output_value = result.id ? parseChartGPTResult(result) : '';
+                const queue = encoder.encode(output_value);
+                completion += output_value;
+                controller.enqueue(queue);
+              } catch (e) {
+                controller.error(e);
+              }
             }
           }
         }

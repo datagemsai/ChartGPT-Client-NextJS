@@ -161,6 +161,17 @@ export async function POST(req: Request): Promise<Response> {
 
     const stream = new ReadableStream({
       async start(controller) {
+        let streamEnded = false;
+
+        async function keepAlive() {
+          while (!streamEnded) {
+            const output_value = '.';
+            const queue = encoder.encode(output_value);
+            controller.enqueue(queue);
+            await new Promise(resolve => setTimeout(resolve, 15_000));
+          }
+        }
+
         async function onParse(event: ParsedEvent | ReconnectInterval): Promise<void> {
           if (event.type === "event") {
             const data = event.data;
@@ -178,6 +189,8 @@ export async function POST(req: Request): Promise<Response> {
               controller.enqueue(queue);
             } else if (event.event === "stream_end" || data === "[DONE]"){
               console.log(`Stream has ended`)
+              streamEnded = true;
+              
               const output_value = 'All done! 🎉\n\n';
               const queue = encoder.encode(output_value);
               completion += output_value;
@@ -206,9 +219,11 @@ export async function POST(req: Request): Promise<Response> {
           }
         }
 
-      // stream response (SSE) may be fragmented into multiple chunks
-      // this ensures we properly read chunks & invoke an event for each SSE event stream
-      const parser = createParser(onParse);
+        keepAlive();
+
+        // stream response (SSE) may be fragmented into multiple chunks
+        // this ensures we properly read chunks & invoke an event for each SSE event stream
+        const parser = createParser(onParse);
 
         // https://web.dev/streams/#asynchronous-iteration
         for await (const chunk of response.body as any) {
@@ -217,15 +232,12 @@ export async function POST(req: Request): Promise<Response> {
       },
     });
 
-    return new Response(stream, {
-      headers: {
-        'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': 'no-cache',
-        'X-Accel-Buffering': 'no',
-        'Connection': 'keep-alive',
-      },
-    })
-    // return new StreamingTextResponse(stream)
+    // return new Response(stream, {
+    //   headers: {
+    //     'Content-Type': 'text/html; charset=utf-8',
+    //   },
+    // })
+    return new StreamingTextResponse(stream)
   } catch (error) {
     console.error(error)
     return new Response('API error', {

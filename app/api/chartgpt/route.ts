@@ -107,6 +107,9 @@ async function onCompletion(
     })
   } catch (error) {
     console.error(error)
+  } finally {
+    await kv.del(`chat:${id}`)
+    await kv.zrem(`user:chat:${userId}`, `chat:${id}`)
   }
   // const messages_exist = await kv.exists(`chat:${id}:messages`)
   // if (messages_exist) {

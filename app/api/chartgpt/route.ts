@@ -217,10 +217,15 @@ export async function POST(req: Request): Promise<Response> {
       },
     });
 
-    // return new Response(stream, {
-    //   headers: { 'Content-Type': 'text/html; charset=utf-8' },
-    // })
-    return new StreamingTextResponse(stream)
+    return new Response(stream, {
+      headers: {
+        'Content-Type': 'text/html; charset=utf-8',
+        'Cache-Control': 'no-cache',
+        'X-Accel-Buffering': 'no',
+        'Connection': 'keep-alive',
+      },
+    })
+    // return new StreamingTextResponse(stream)
   } catch (error) {
     console.error(error)
     return new Response('API error', {

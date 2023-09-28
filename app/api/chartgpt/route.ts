@@ -165,7 +165,7 @@ export async function POST(req: Request): Promise<Response> {
 
         async function keepAlive() {
           while (!streamEnded) {
-            const output_value = '.';
+            const output_value = '';
             const queue = encoder.encode(output_value);
             controller.enqueue(queue);
             await new Promise(resolve => setTimeout(resolve, 15_000));
@@ -181,12 +181,12 @@ export async function POST(req: Request): Promise<Response> {
               const queue = encoder.encode(output_value);
               completion += output_value;
               controller.enqueue(queue);
-            } else if (event.event === "keep-alive"){
-              console.log(`Keep-alive event received`)
-              const output_value = '.';
-              const queue = encoder.encode(output_value);
-              completion += output_value;
-              controller.enqueue(queue);
+            // } else if (event.event === "keep-alive"){
+            //   console.log(`Keep-alive event received`)
+            //   const output_value = '.';
+            //   const queue = encoder.encode(output_value);
+            //   completion += output_value;
+            //   controller.enqueue(queue);
             } else if (event.event === "stream_end" || data === "[DONE]"){
               console.log(`Stream has ended`)
               streamEnded = true;

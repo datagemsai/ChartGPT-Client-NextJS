@@ -11,7 +11,6 @@ import { CodeBlock } from '@/components/ui/codeblock'
 import { MemoizedReactMarkdown } from '@/components/markdown'
 import { IconBot, IconUser } from '@/components/ui/icons'
 import { ChatMessageActions } from '@/components/chat-message-actions'
-// import Plot from 'react-plotly.js'
 import dynamic from 'next/dynamic'
 
 import Accordion from '@mui/material/Accordion';
@@ -90,18 +89,18 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                 .replace(/sql/, '')
 
               if (children.length === 0 || !children[0]) {
-                console.log('No children')
+                console.error('Chat has no children')
                 return null
               }
 
               if (language === 'table') {
-                console.log('Generating table')
+                console.debug('Generating table')
 
                 let pandasData: any
                 try {
                   pandasData = JSON.parse(String(children[0]))
                 } catch (error) {
-                  console.log(`Error parsing JSON: ${error}`)
+                  console.error(`Error parsing JSON: ${error}`)
                   return null
                 }
   
@@ -130,7 +129,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                   </Accordion>
                 )
               } else if (language === 'python' || language === 'sql') {
-                console.log('Generating code block')
+                console.debug('Generating code block')
                 return (
                   <Accordion>
                     <AccordionSummary
@@ -154,13 +153,13 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                   </Accordion>
                 )
               } else if (language === 'chart') {
-                console.log('Generating chart')
+                console.debug('Generating chart')
                 
                 let plotlyData: PlotlyData
                 try {
                   plotlyData = JSON.parse(typeof children[0] === 'string' ? children[0] : String(children[0]))
                 } catch (error) {
-                  console.log(`Error parsing JSON: ${error}`)
+                  console.debug(`Error parsing JSON: ${error}`)
                   return null
                 }
 
@@ -179,7 +178,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
                   />
                 )
               } else {
-                console.log(`Unhandled language: ${language}`)
+                console.error(`Unhandled language: ${language}`)
                 return null
               }
             },

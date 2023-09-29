@@ -88,7 +88,7 @@ export default async function Image({ params }: ImageProps) {
         </div>
         <div tw="flex items-center justify-between w-full mt-auto">
           <div tw="flex items-center">
-            <svg
+            {/* <svg
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
               fill="#9b9ba4"
@@ -96,14 +96,13 @@ export default async function Image({ params }: ImageProps) {
               height={40}
             >
               <path d="M24 22.525H0l12-21.05 12 21.05z" />
-            </svg>
+            </svg> */}
             <div tw="flex text-[1.8rem] ml-4 text-[#9b9ba4]">
               Built with{' '}
-              <div tw="flex text-[#eaeaf0] ml-2 mr-2">Vercel AI SDK</div> &
-              <div tw="flex text-[#eaeaf0] ml-2">KV</div>
+              <div tw="flex text-[#eaeaf0] ml-2 mr-2">the ChartGPT API</div>
             </div>
           </div>
-          <div tw="text-[1.8rem] ml-auto text-[#9b9ba4]">chat.vercel.ai</div>
+          <div tw="text-[1.8rem] ml-auto text-[#9b9ba4]">chartgpt.***REMOVED***</div>
         </div>
       </div>
     ),

@@ -13,7 +13,7 @@ export const dynamic = 'force-dynamic'
 function parseChartGPTResult(result: any): string {
   let output_value = ''
 
-  console.log(`Received result for job ID: ${result.id}`)
+  console.debug(`Received result for job ID: ${result.id}`)
 
   const outputs = result.outputs
   const attempts = result.attempts
@@ -28,7 +28,7 @@ function parseChartGPTResult(result: any): string {
 
   if (outputs?.length && outputs[0]?.value) {
     const output = outputs[0]
-    console.log(`${result.id}: Processing output of type ${output.type}`)
+    console.debug(`${result.id}: Processing output of type ${output.type}`)
     console.debug(`${result.id}: First 10 characters of output: ${output.value.substring(0, 10)}`)
     console.debug(`${result.id}: Last 10 characters of output: ${output.value.substring(output.value.length - 10)}`)
     if (output.type === "sql_query") {
@@ -53,11 +53,9 @@ function parseChartGPTResult(result: any): string {
       output_value += "\n```"
       output_value += "\n"
     } else if (["string", "int", "float", "bool"].includes(output.type)) {
-      // "python_output"
-      // output_value += "```\n"
+      output_value += "\n"
       output_value += output.value.substring(0, 140)
-      // output_value += "\n```"
-      // output_value += "\n"
+      output_value += "\n"
     } else if (output.type === "plotly_chart") {
       output_value += "\n"
       output_value += "```chart\n"
@@ -65,7 +63,7 @@ function parseChartGPTResult(result: any): string {
       output_value += "\n```"
       output_value += "\n"
     } else {
-      console.log(`${result.id}: Unknown or unhandled output type: ${output.type}`)
+      console.error(`${result.id}: Unknown or unhandled output type ${output.type}`)
     }
   }
   return output_value
@@ -79,8 +77,9 @@ async function onCompletion(
   dataSourceURL: string,
   completion: String
 ) {
-  const title = json.messages[0].content.substring(0, 100)
   const id = json.id ?? nanoid()
+  console.log(`Chat finished: ${id}`)
+  const title = json.messages[0].content.substring(0, 100)
   const createdAt = Date.now()
   const path = `/chat/${id}`
   const payload = {
@@ -98,18 +97,19 @@ async function onCompletion(
       }
     ],
   }
-  // Catch UpstashError
-  try {
+  try { // Catch UpstashError
+    console.debug(`Saving chat: ${id}`)
     await kv.hmset(`chat:${id}`, payload)
     await kv.zadd(`user:chat:${userId}`, {
       score: createdAt,
       member: `chat:${id}`
     })
+    console.debug(`Chat saved: ${id}`)
   } catch (error) {
     console.error(error)
-  } finally {
     await kv.del(`chat:${id}`)
     await kv.zrem(`user:chat:${userId}`, `chat:${id}`)
+    console.error(`Chat failed to save`)
   }
   // const messages_exist = await kv.exists(`chat:${id}:messages`)
   // if (messages_exist) {

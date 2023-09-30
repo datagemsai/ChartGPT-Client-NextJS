@@ -10,6 +10,7 @@ import { Providers } from '@/components/providers'
 import { Header } from '@/components/header'
 import { publicRuntimeConfig } from 'next.config'
 import { ButtonBackHome } from '@/components/button-back-home'
+import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: {
@@ -49,6 +50,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               {/* @ts-ignore */}  
               <Header />
               <main className="flex flex-1 flex-col bg-muted/50">{children}</main>
+              <Analytics />
           </div>
           <TailwindIndicator />
           <ButtonBackHome />

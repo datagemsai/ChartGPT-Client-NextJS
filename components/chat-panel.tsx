@@ -5,7 +5,8 @@ import { PromptForm } from '@/components/prompt-form'
 import { ButtonScrollToBottom } from '@/components/button-scroll-to-bottom'
 import { IconRefresh, IconStop } from '@/components/ui/icons'
 import { FooterText } from '@/components/footer'
-import { LinearProgress } from '@mui/material';
+import { LinearProgress } from '@mui/material'
+import va from '@vercel/analytics'
 
 export interface ChatPanelProps
   extends Pick<
@@ -39,7 +40,7 @@ export function ChatPanel({
           {isLoading ? (
             <Button
               variant="outline"
-              onClick={() => stop()}
+              onClick={() => stop() && va.track('stop_generating', { chatId: id ?? '' })}
               className="bg-background"
             >
               <IconStop className="mr-2" />
@@ -49,7 +50,7 @@ export function ChatPanel({
             messages?.length > 0 && (
               <Button
                 variant="outline"
-                onClick={() => reload()}
+                onClick={() => reload() && va.track('regenerate_response', { chatId: id ?? '' })}
                 className="bg-background"
               >
                 <IconRefresh className="mr-2" />
@@ -66,6 +67,7 @@ export function ChatPanel({
                 content: value,
                 role: 'user'
               })
+              va.track('submit_query', { chatId: id ?? '', query: value })
             }}
             input={input}
             setInput={setInput}

@@ -5,6 +5,8 @@ import { formatDate } from '@/lib/utils'
 import { getSharedChat } from '@/app/actions'
 import { ChatList } from '@/components/chat-list'
 import { FooterText } from '@/components/footer'
+import va from '@vercel/analytics'
+import { useEffect } from 'react'
 
 // export const runtime = 'edge'
 // export const preferredRegion = 'home'
@@ -31,6 +33,12 @@ export default async function SharePage({ params }: SharePageProps) {
   if (!chat || !chat?.sharePath) {
     notFound()
   }
+
+  useEffect(() => {
+    va.track('shared_chat_visit', {
+      chatId: params.id
+    })
+  })
 
   return (
     <>

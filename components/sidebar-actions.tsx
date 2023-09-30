@@ -38,6 +38,7 @@ import {
   TooltipContent,
   TooltipTrigger
 } from '@/components/ui/tooltip'
+import va from '@vercel/analytics'
 
 interface SidebarActionsProps {
   chat: Chat
@@ -156,6 +157,10 @@ export function SidebarActions({
                   }
 
                   copyShareLink(result)
+
+                  va.track('share_chat', {
+                    chatId: result.id,
+                  })
                 })
               }}
             >

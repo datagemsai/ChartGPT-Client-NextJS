@@ -40,7 +40,10 @@ export function ChatPanel({
           {isLoading ? (
             <Button
               variant="outline"
-              onClick={() => stop() && va.track('stop_generating', { chatId: id ?? '' })}
+              onClick={() => {
+                stop()
+                va.track('stop_generating', { chatId: id ?? '' })
+              }}
               className="bg-background"
             >
               <IconStop className="mr-2" />
@@ -50,7 +53,10 @@ export function ChatPanel({
             messages?.length > 0 && (
               <Button
                 variant="outline"
-                onClick={() => reload() && va.track('regenerate_response', { chatId: id ?? '' })}
+                onClick={() => {
+                  reload()
+                  va.track('regenerate_response', { chatId: id ?? '' })
+                }}
                 className="bg-background"
               >
                 <IconRefresh className="mr-2" />

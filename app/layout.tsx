@@ -8,16 +8,16 @@ import { cn } from '@/lib/utils'
 import { TailwindIndicator } from '@/components/tailwind-indicator'
 import { Providers } from '@/components/providers'
 import { Header } from '@/components/header'
-import { publicRuntimeConfig } from 'next.config'
+import config from '@/lib/config'
 import { ButtonBackHome } from '@/components/button-back-home'
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
   title: {
-    default: publicRuntimeConfig?.chatBotName,
-    template: `%s - ${publicRuntimeConfig?.chatBotName}`
+    default: config?.chatBotName,
+    template: `%s - ${config?.chatBotName}`
   },
-  description: publicRuntimeConfig?.chatBotDescription,
+  description: config?.chatBotDescription,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: 'white' },
     { media: '(prefers-color-scheme: dark)', color: 'black' }

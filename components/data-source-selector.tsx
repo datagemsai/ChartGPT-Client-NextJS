@@ -5,11 +5,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { publicRuntimeConfig } from 'next.config'
+import config from '@/lib/config'
 import { useSelector, useDispatch } from 'react-redux'
 import { DataSource, selectDataSource, setDataSource } from '@/lib/redux/data-slice'
 
-const dataSources: { [key: string]: DataSource } = publicRuntimeConfig?.dataSources ?? []
+const dataSources: { [key: string]: DataSource } = config?.dataSources ?? []
 
 export default function DataSourceSelector() {
   const dataSource: DataSource = useSelector(selectDataSource)

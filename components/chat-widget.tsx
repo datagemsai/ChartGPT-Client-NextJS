@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import { makeStyles } from '@mui/styles';
 
-import { publicRuntimeConfig } from 'next.config'
+import config from '@/lib/config'
 import { ChatPanelProps } from '@/components/chat-panel';
 
 const useStyles = makeStyles((theme) => ({
@@ -74,11 +74,11 @@ export function ChatWidget({
         >
         <div className={classes.flexContainer}>
           <img
-            src={publicRuntimeConfig?.assistantLogo}
+            src={config?.assistantLogo}
             alt="Logo"
             className={classes.logo}
           />
-          <Typography>{publicRuntimeConfig?.chatBotName}</Typography>
+          <Typography>{config?.chatBotName}</Typography>
         </div>
         </AccordionSummary>
         <AccordionDetails className={classes.details}>

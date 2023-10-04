@@ -13,8 +13,9 @@ export function ButtonBackHome({ className, ...props }: ButtonProps) {
   const isHome = pathname === '/'
   const isChat = pathname.startsWith('/chat')
   const isShare = pathname.startsWith('/share')
+  const isSignIn = pathname.startsWith('/signin')
   
-  return (
+  return isSignIn ? (
     <div className="fixed top-20 left-20 z-50 flex items-center justify-center">
       <Button
         variant="outline"
@@ -36,5 +37,5 @@ export function ButtonBackHome({ className, ...props }: ButtonProps) {
         <span className="sr-only">Go back home</span>
       </Button>
     </div>
-  )
+  ) : null
 }

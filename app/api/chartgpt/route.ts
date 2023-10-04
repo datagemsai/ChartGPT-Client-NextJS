@@ -1,4 +1,4 @@
-import { kv } from '@vercel/kv'
+import { kv } from '@/lib/kv'
 import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser'
 
 import { auth } from '@/auth'
@@ -131,7 +131,8 @@ async function onCompletion(
 export async function POST(req: Request): Promise<Response> {
   const json = await req.json()
   const { messages, previewToken, dataSourceURL } = json
-  const userId = (await auth())?.user.id
+  const session = await auth()
+  const userId = session?.user.sub
 
   if (!userId) {
     return new Response('Unauthorized', {

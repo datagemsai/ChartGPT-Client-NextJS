@@ -1,4 +1,5 @@
 import { type Message } from 'ai'
+import { DataSource } from '@/lib/redux/data-slice'
 
 export interface Chat extends Record<string, any> {
   id: string
@@ -17,3 +18,17 @@ export type ServerActionResult<Result> = Promise<
       error: string
     }
 >
+
+export interface Config {
+  kvRestApiUrl?: string,
+  kvRestApiToken?: string,
+  allowedEmailDomains: string[],
+  headerLogo: string,
+  assistantLogo: string,
+  chatBotName: string,
+  chatBotWelcomeMessage: string,
+  chatBotDescription: string,
+  dataSources: {
+    [key: string]: DataSource
+  }
+}

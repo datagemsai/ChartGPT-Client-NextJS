@@ -6,7 +6,7 @@ import { IconArrowRight } from '@/components/ui/icons'
 import { DataSourceCard } from '@/components/data-source-card'
 import { connect } from 'react-redux'
 import { DataSource, setDataSource } from '@/lib/redux/data-slice'
-import { publicRuntimeConfig } from 'next.config'
+import config from '@/lib/config'
 import { AppState } from '@/lib/redux/store'
 import React from 'react'
 
@@ -28,7 +28,7 @@ class EmptyScreen extends React.Component<EmptyScreenProps> {
   }
 
   render() {
-    const dataSources: {[key: string]: DataSource} = publicRuntimeConfig?.dataSources ?? {}
+    const dataSources: {[key: string]: DataSource} = config?.dataSources ?? {}
     const dataSource: DataSource = this.props.dataSource
     const sampleQuestions: string[] = dataSource.sampleQuestions ?? []
 
@@ -41,10 +41,10 @@ class EmptyScreen extends React.Component<EmptyScreenProps> {
         <div className="rounded-lg bg-background p-8">
           {/* <img src="/property_guru.png" alt="Property Guru Logo" className='pb-8' /> */}
           <h1 className="mb-2 text-lg font-semibold">
-            {publicRuntimeConfig?.chatBotWelcomeMessage}
+            {config?.chatBotWelcomeMessage}
           </h1>
           <p className="mb-2 leading-normal text-muted-foreground">
-            Start by selecting a data source from one of our data providers:
+            Start by selecting a data source:
           </p>
           {
             Object.keys(dataSources).map((key: string, index: number) => (

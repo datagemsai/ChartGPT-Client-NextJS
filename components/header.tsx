@@ -19,8 +19,8 @@ import { ThemeToggle } from '@/components/theme-toggle'
 import { ClearHistory } from '@/components/clear-history'
 import { UserMenu } from '@/components/user-menu'
 import { LoginButton } from '@/components/login-button'
+import config from '@/lib/config'
 
-import { publicRuntimeConfig } from 'next.config'
 import DataSourceSelector from '@/components/data-source-selector'
 
 export async function Header() {
@@ -48,18 +48,21 @@ export async function Header() {
             <div className='hidden sm:block'>
               <UserMenu user={session.user} />
             </div>
-          ) : (
+          ) : null}
+          {/* (
             <Button variant="link" asChild className="-ml-2">
               <Link href="/sign-in?callbackUrl=/">Login</Link>
             </Button>
-          )}
+          ) */}
         </div>
       </div>
       <div className="absolute inset-0 z-0 flex items-center justify-center">
-        <img src="/chartgpt/logo_chartgpt_horizontal.png" alt="Logo" className="hidden mx-auto h-12 md:block" />
+        {session?.user ? (
+          <img src={config.headerLogo} alt="Logo" className="hidden mx-auto h-12 md:block" />
+          ) : null}
       </div>
       <div className="z-10 flex items-center justify-end space-x-2">
-        <DataSourceSelector />
+        {session?.user ? <DataSourceSelector /> : null}
         {/* <a
           target="_blank"
           href="https://github.com/vercel/nextjs-ai-chatbot/"

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppState } from "@/lib/redux/store";
 // import { HYDRATE } from "next-redux-wrapper";
-import { publicRuntimeConfig } from 'next.config'
+import config from '@/lib/config'
 
 // Type for our state
 export interface DataSource {
@@ -19,7 +19,7 @@ export interface DataSourceState {
 }
 
 // Initial state
-const defaultDataSource = Object.values(publicRuntimeConfig?.dataSources)[0] as DataSource;
+const defaultDataSource = Object.values(config?.dataSources)[0] as DataSource;
 const initialState: DataSourceState = {
   dataSource: defaultDataSource
 }

@@ -30,9 +30,9 @@ export function LoginButton({
       className={cn(className)}
       {...props}
     >
-      {isLoading ?? (
+      {isLoading ? (
         <IconSpinner className="mr-2 animate-spin" />
-      )}
+      ) : null}
       {text}
     </Button>
   )

@@ -34,10 +34,8 @@ export default async function SharePage({ params }: SharePageProps) {
     notFound()
   }
 
-  useEffect(() => {
-    va.track('shared_chat_visit', {
-      chatId: params.id
-    })
+  va.track('shared_chat_visit', {
+    chatId: params.id
   })
 
   return (

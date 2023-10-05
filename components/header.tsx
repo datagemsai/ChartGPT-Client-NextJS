@@ -18,7 +18,6 @@ import { SidebarFooter } from '@/components/sidebar-footer'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { ClearHistory } from '@/components/clear-history'
 import { UserMenu } from '@/components/user-menu'
-import { LoginButton } from '@/components/login-button'
 import config from '@/lib/config'
 
 import DataSourceSelector from '@/components/data-source-selector'
@@ -33,7 +32,7 @@ export async function Header() {
             <Sidebar>
               <React.Suspense fallback={<div className="flex-1 overflow-auto" />}>
                 {/* @ts-ignore */}
-                <SidebarList userId={session?.user?.sub} />
+                <SidebarList userId={session?.user?.id} />
               </React.Suspense>
               <SidebarFooter>
                 <ThemeToggle />
@@ -58,7 +57,9 @@ export async function Header() {
       </div>
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         {session?.user ? (
-          <img src={config.headerLogo} alt="Logo" className="hidden mx-auto h-12 md:block" />
+          <a href="/">
+            <img src={config.headerLogo} alt="Logo" className="hidden mx-auto h-12 md:block" />
+          </a>
           ) : null}
       </div>
       <div className="z-10 flex items-center justify-end space-x-2">

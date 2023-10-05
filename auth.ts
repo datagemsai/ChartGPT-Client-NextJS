@@ -9,9 +9,7 @@ declare module 'next-auth' {
   interface Session {
     user: {
       /** The user's id. */
-      // TODO Revert to the use of id, so that we can use alternative providers like GitHub - see TODO below
-      // id: string
-      sub: string
+      id: string
     } & DefaultSession['user']
   }
 }
@@ -26,7 +24,10 @@ export const {
   auth,
   CSRF_experimental // will be removed in future
 } = NextAuth({
-  providers: [googleProvider],
+  providers: [
+    // GitHub,
+    googleProvider
+  ],
   // adapter: FirestoreAdapter(firestore),
   session: {
     strategy: "jwt",
@@ -36,7 +37,7 @@ export const {
       if (account?.provider === "google") {
         const allowedEmailDomains = config.allowedEmailDomains
         return (
-          profile?.email_verified && allowedEmailDomains.some(
+          !allowedEmailDomains.length || profile?.email_verified && allowedEmailDomains.some(
             (domain) => profile.email?.endsWith(domain)
           )
         ) ?? false
@@ -58,13 +59,14 @@ export const {
       user: {
         ...session.user,
         // TODO The user object in the session does not seem to have the id field despite the following code,
-        // and so we're currently accessing user.sub instead.
-        id: token.sub,
+        // and so we're currently accessing user.id instead.
+        id: token.id,
       },
     }),
     jwt({ token, profile }) {
       if (profile) {
-        token.id = profile.id
+        // token.id = profile.id // GitHub
+        token.id = String(profile.sub) // Google
         token.image = profile.avatar_url || profile.picture
       }
       return token

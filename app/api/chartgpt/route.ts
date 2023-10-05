@@ -5,6 +5,8 @@ import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
 import { StreamingTextResponse } from 'ai'
+import { Chat } from '@/lib/types'
+import { saveChat } from '@/app/actions'
 
 export const runtime = 'edge'
 export const dynamic = 'force-dynamic'
@@ -82,10 +84,10 @@ async function onCompletion(
   const title = json.messages[0].content.substring(0, 100)
   const createdAt = Date.now()
   const path = `/chat/${id}`
-  const payload = {
+  const payload = <Chat>{
     id,
     title,
-    userId,
+    userId: `uid-${userId}`,
     createdAt,
     path,
     dataSourceURL,
@@ -99,11 +101,7 @@ async function onCompletion(
   }
   try { // Catch UpstashError
     console.debug(`Saving chat: ${id}`)
-    await kv.hmset(`chat:${id}`, payload)
-    await kv.zadd(`user:chat:${userId}`, {
-      score: createdAt,
-      member: `chat:${id}`
-    })
+    saveChat(id, userId, payload)
     console.debug(`Chat saved: ${id}`)
   } catch (error) {
     console.error(error)
@@ -132,7 +130,7 @@ export async function POST(req: Request): Promise<Response> {
   const json = await req.json()
   const { messages, previewToken, dataSourceURL } = json
   const session = await auth()
-  const userId = session?.user.sub
+  const userId = session?.user.id
 
   if (!userId) {
     return new Response('Unauthorized', {

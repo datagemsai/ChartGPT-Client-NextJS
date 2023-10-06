@@ -15,7 +15,7 @@ export function ButtonBackHome({ className, ...props }: ButtonProps) {
   const isShare = pathname.startsWith('/share')
   const isSignIn = pathname.startsWith('/signin')
   
-  return isSignIn ? (
+  return !isSignIn ? (
     <div className="fixed top-20 left-20 z-50 flex items-center justify-center">
       <Button
         variant="outline"

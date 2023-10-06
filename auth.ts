@@ -58,15 +58,13 @@ export const {
       ...session,
       user: {
         ...session.user,
-        // TODO The user object in the session does not seem to have the id field despite the following code,
-        // and so we're currently accessing user.id instead.
         id: token.id,
       },
     }),
     jwt({ token, profile }) {
       if (profile) {
         // token.id = profile.id // GitHub
-        token.id = String(profile.sub) // Google
+        token.id = String(`uid-${profile.sub}`) // Google
         token.image = profile.avatar_url || profile.picture
       }
       return token

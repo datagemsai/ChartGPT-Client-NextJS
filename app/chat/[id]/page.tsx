@@ -43,7 +43,7 @@ export default async function ChatPage({ params }: ChatPageProps) {
     notFound()
   }
 
-  if (chat?.userId !== `uid-${session?.user?.id}`) {
+  if (chat?.userId !== session?.user?.id) {
     console.log('User ID does not match')
     notFound()
   }

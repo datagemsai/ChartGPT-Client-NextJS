@@ -87,7 +87,7 @@ async function onCompletion(
   const payload = <Chat>{
     id,
     title,
-    userId: `uid-${userId}`,
+    userId,
     createdAt,
     path,
     dataSourceURL,

@@ -44,7 +44,7 @@ export async function POST(req: Request) {
       const payload = {
         id,
         title,
-        userId: `uid-${userId}`,
+        userId,
         createdAt,
         path,
         messages: [

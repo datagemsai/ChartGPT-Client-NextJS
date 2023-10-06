@@ -58,6 +58,7 @@ function parseChartGPTResult(result: any): string {
       output_value += "\n"
       output_value += output.value.substring(0, 140)
       output_value += "\n"
+      output_value += "\n"
     } else if (output.type === "plotly_chart") {
       output_value += "\n"
       output_value += "```chart\n"

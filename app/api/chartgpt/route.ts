@@ -4,7 +4,6 @@ import { createParser, ParsedEvent, ReconnectInterval } from 'eventsource-parser
 import { auth } from '@/auth'
 import { nanoid } from '@/lib/utils'
 import { format } from 'sql-formatter'
-import { StreamingTextResponse } from 'ai'
 import { Chat } from '@/lib/types'
 import { saveChat } from '@/app/actions'
 
@@ -190,17 +189,29 @@ export async function POST(req: Request): Promise<Response> {
               const queue = encoder.encode(output_value);
               completion += output_value;
               controller.enqueue(queue);
-            // } else if (event.event === "keep-alive"){
-            //   console.log(`Keep-alive event received`)
-            //   const output_value = '.';
-            //   const queue = encoder.encode(output_value);
-            //   completion += output_value;
-            //   controller.enqueue(queue);
             } else if (event.event === "stream_end" || data === "[DONE]"){
               console.log(`Stream has ended`)
               streamEnded = true;
               
               const output_value = 'All done! 🎉\n\n';
+              const queue = encoder.encode(output_value);
+              completion += output_value;
+              controller.enqueue(queue);
+
+              await onCompletion(
+                json,
+                messages,
+                userId,
+                dataSourceURL,
+                completion,
+              );
+              controller.close();
+              return;
+            } else if (event.event === "error") {
+              console.error(`ChartGPT analysis error: ${data}`)
+              streamEnded = true;
+
+              const output_value = 'Oops, something went wrong! 😢 We are working on it 🚧 \n\n';
               const queue = encoder.encode(output_value);
               completion += output_value;
               controller.enqueue(queue);
@@ -227,8 +238,10 @@ export async function POST(req: Request): Promise<Response> {
             }
           }
         }
-
-        keepAlive();
+        
+        try {
+          keepAlive();
+        } catch (e) {}
 
         // stream response (SSE) may be fragmented into multiple chunks
         // this ensures we properly read chunks & invoke an event for each SSE event stream
@@ -239,6 +252,10 @@ export async function POST(req: Request): Promise<Response> {
           parser.feed(decoder.decode(chunk));
         }
       },
+      cancel(reason) {
+        // Called when the stream is canceled.
+        console.log(`Stream canceled: ${reason}`)
+      },
     });
 
     return new Response(stream, {
@@ -246,7 +263,6 @@ export async function POST(req: Request): Promise<Response> {
         'Content-Type': 'text/html; charset=utf-8',
       },
     })
-    // return new StreamingTextResponse(stream)
   } catch (error) {
     console.error(error)
     return new Response('API error', {

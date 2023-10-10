@@ -45,6 +45,7 @@ export default <Config> {
         'Which states offer the best value for money in terms of house size? Show this on a map.',
         'What is the most common feedback term for houses in New York?',
         'Which cities had the highest USD sale volume in 2022?',
+        'For properties that have had more than 10 viewings, how long, on average, does it take to sell them?',
         // 'Based on the number of bedrooms and the zip code, what is the average selling price of similar properties in the past 6 months?',
         // 'For properties listed on our website, how does the number of website visits correlate with the number of physical property viewings?',
         // 'Which properties have had more than 50% of their total viewings in the past 3 days, indicating a recent surge in interest?',

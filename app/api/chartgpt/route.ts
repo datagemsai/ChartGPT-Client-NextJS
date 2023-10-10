@@ -101,8 +101,12 @@ async function onCompletion(
   }
   try { // Catch UpstashError
     console.debug(`Saving chat: ${id}`)
-    saveChat(id, userId, payload)
-    console.debug(`Chat saved: ${id}`)
+    const result = await saveChat(id, userId, payload)
+    if (result && 'error' in result) {
+      console.error(result.error)
+    } else {
+      console.debug(`Chat saved: ${id}`)
+    }
   } catch (error) {
     console.error(error)
     await kv.del(`chat:${id}`)

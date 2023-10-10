@@ -41,6 +41,7 @@ export async function saveChat(id: string, userId: string, payload: Chat) {
     score: payload.createdAt,
     member: `chat:${id}`
   })
+  return payload
 }
 
 export async function getChat(id: string, userId: string) {

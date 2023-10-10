@@ -27,29 +27,30 @@ export function DataSourceCard({ dataSource, selected, selectDataSource }: DataS
                     {dataSource.dataSourceName}
                 </Typography>
                 <Typography variant="body2">
-                    {dataSource.dataSourceDescription}<br />
-                    {dataSource.dataProviderWebsite && (
+                    {dataSource.dataSourceDescription}
+                    <br />
+                    {/* {dataSource.dataProviderWebsite && (
                         <ExternalLink href={dataSource.dataProviderWebsite}>
                             Provided by {dataSource.dataProviderName}.
                         </ExternalLink>
-                    )}
+                    )} */}
                 </Typography>
             </CardContent>
             </CardActionArea>
-            {dataSource.dataProviderImage && (
-            <Avatar
-                src={dataSource.dataProviderImage}
-                alt="Data Provider"
-                variant="square"
-                sx={{
-                    width: 32,
-                    height: 32,
-                    position: 'absolute',
-                    top: 8,
-                    right: 8
-                }}
-            />
-            )}
+            {/* {dataSource.dataProviderImage && (
+                <Avatar
+                    src={dataSource.dataProviderImage}
+                    alt="Data Provider"
+                    variant="square"
+                    sx={{
+                        width: 32,
+                        height: 32,
+                        position: 'absolute',
+                        top: 8,
+                        right: 8
+                    }}
+                />
+            )} */}
       </Card>
     )
 }

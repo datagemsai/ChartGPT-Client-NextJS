@@ -22,7 +22,8 @@ export type ServerActionResult<Result> = Promise<
 export interface Config {
   kvRestApiUrl?: string,
   kvRestApiToken?: string,
-  allowedEmailDomains: string[],
+  allowedEmailDomains?: string[],
+  allowedEmailAddresses?: string[],
   headerLogo: string,
   assistantLogo: string,
   chatBotName: string,

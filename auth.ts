@@ -35,13 +35,27 @@ export const {
   callbacks: {
     signIn({ account, profile }) {
       if (account?.provider === "google") {
-        const allowedEmailDomains = config.allowedEmailDomains
-        return (
-          !allowedEmailDomains.length || profile?.email_verified && allowedEmailDomains.some(
-            (domain) => profile.email?.endsWith(domain)
-          )
-        ) ?? false
+        const email = profile?.email ?? ''
+        const allowedEmailDomains = config?.allowedEmailDomains ?? []
+        const allowedEmailAddresses = config?.allowedEmailAddresses ?? []
+        
+        if (!allowedEmailAddresses.length && !allowedEmailDomains.length) {
+          // If no allowed email addresses or domains are specified, allow all
+          return true
+        } else if (allowedEmailAddresses.length && allowedEmailAddresses.includes(email)) {
+          // If allowed email addresses are specified, check if the user's email is in the list
+          return true
+        } else if (allowedEmailDomains.length && allowedEmailDomains.some(
+          (domain) => email.endsWith(domain)
+        )) {
+          // If allowed email domains are specified, check if the user's email domain is in the list
+          return true
+        } else {
+          // Otherwise, deny access
+          return false
+        }
       } else {
+        // If the user is not signing in with Google, don't allow access
         return false
       }
       // TODO For marketplace, re-enable closed beta email addresses check

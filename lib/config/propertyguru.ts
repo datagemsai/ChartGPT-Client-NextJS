@@ -3,8 +3,22 @@ import { Config } from "@/lib/types"
 export default <Config> {
   kvRestApiUrl: '***REMOVED***',
   kvRestApiToken: '***REMOVED***',
-  allowedEmailDomains: ['***REMOVED***', '***REMOVED***'],
-  allowedEmailAddresses: ['***REMOVED***', '***REMOVED***'],
+  allowedEmailDomains: [
+    '***REMOVED***',
+    '***REMOVED***',
+    '***REMOVED***',
+    '***REMOVED***',
+    '***REMOVED***',
+  ],
+  allowedEmailAddresses: [
+    '***REMOVED***',
+    '***REMOVED***',
+    // PropertyGuru
+    'arnab@***REMOVED***',
+    'jienmin.soh@***REMOVED***',
+    'soojin@***REMOVED***',
+    'suvro@***REMOVED***',
+  ],
   headerLogo: '/property_guru/property_guru_horizontal.svg',
   assistantLogo: '/property_guru/property_guru.svg',
   chatBotName: 'PropertyGuru Chat',

@@ -3,8 +3,22 @@ import { Config } from "@/lib/types"
 export default <Config> {
   kvRestApiUrl: 'https://helped-anteater-31080.kv.vercel-storage.com',
   kvRestApiToken: 'AXloASQgOGE0M2YxY2EtMTY3MS00MjY2LWFlNjEtYzc3ODc1MTUzNTJmYzg4YTU0M2IzY2NiNDE3NGI1ZTY2MDNiM2MwOTkxMzE=',
-  allowedEmailDomains: ['propertyguru.com.sg', 'cadlabs.org'],
-  allowedEmailAddresses: ['mrsharadgupta@gmail.com', 'jeziel.jones@gmail.com'],
+  allowedEmailDomains: [
+    'ddproperty.com',
+    'iproperty.com.my',
+    'propertyguru.com.sg',
+    'propertyguru.tech',
+    'cadlabs.org',
+  ],
+  allowedEmailAddresses: [
+    'mrsharadgupta@gmail.com',
+    'jeziel.jones@gmail.com',
+    // PropertyGuru
+    'arnab@ddproperty.com',
+    'jienmin.soh@iproperty.com.my',
+    'soojin@propertyguru.com.sg',
+    'suvro@propertyguru.tech',
+  ],
   headerLogo: '/property_guru/property_guru_horizontal.svg',
   assistantLogo: '/property_guru/property_guru.svg',
   chatBotName: 'PropertyGuru Chat',

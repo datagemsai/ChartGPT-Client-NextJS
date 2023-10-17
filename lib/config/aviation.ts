@@ -13,6 +13,8 @@ export default <Config> {
     'bigquery/chartgpt-staging/aviation/airport_operations': {
       dataSourceName: 'Airport Operations Data',
       dataSourceDescription: `
+      The Airport Operations dataset provides insights into daily airport activities, encompassing aspects like
+      passenger traffic, taxi time, gate turnovers, baggage handling efficiencies, and more.
       `,
       dataSourceURL: 'bigquery/chartgpt-staging/aviation/airport_operations',
       dataProviderName: '',

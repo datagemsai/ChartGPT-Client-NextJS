@@ -6,7 +6,7 @@ export default <Config> {
   assistantLogo: '/data_providers/metaquants.png',
   chatBotName: 'MetaQuants Chat',
   chatBotWelcomeMessage: 'Welcome to MetaQuants Chat!',
-  chatBotDescription: 'Discover insights with conversational analytics',
+  chatBotDescription: 'Discover insights with data-driven conversations',
   dataSources: {
     'bigquery/chartgpt-staging/metaquants_nft_finance_aggregator/p2p_and_p2pool_loan_data_borrow': {
       dataSourceName: 'MetaQuants NFT Finance Aggregator',

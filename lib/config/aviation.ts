@@ -28,6 +28,7 @@ export default <Config> {
         'Which gates had on average the largest volume of baggage in September?',
         'From our historical gate usage data, which gates are most frequently delayed in turning over for incoming flights during morning rush hours (6:30 am - 9:30 am)?',
         'Given 2022 seasonal fluctuations, what volume of baggage can we anticipate between December 15th and December 31st?',
+        'Plot the amount of passengers checked-in versus boarded for each gate over the past month.',
       ]
     },
   }

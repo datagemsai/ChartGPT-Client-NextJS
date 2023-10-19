@@ -24,6 +24,8 @@ export interface Config {
   kvRestApiToken?: string,
   allowedEmailDomains?: string[],
   allowedEmailAddresses?: string[],
+  adminEmailDomains?: string[],
+  adminEmailAddresses?: string[],
   headerLogo: string,
   assistantLogo: string,
   chatBotName: string,
@@ -32,4 +34,9 @@ export interface Config {
   dataSources: {
     [key: string]: DataSource
   }
+}
+
+export enum UserRole {
+  user = 'user',
+  admin = 'admin',
 }

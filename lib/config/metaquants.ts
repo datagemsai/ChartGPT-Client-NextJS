@@ -2,6 +2,7 @@ import { Config } from "@/lib/types"
 
 export default <Config> {
   allowedEmailDomains: ['metaquants.xyz', 'cadlabs.org'],
+  adminEmailDomains: ['cadlabs.org'],
   headerLogo: '/data_providers/metaquants.png',
   assistantLogo: '/data_providers/metaquants.png',
   chatBotName: 'MetaQuants Chat',

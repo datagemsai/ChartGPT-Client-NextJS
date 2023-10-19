@@ -5,10 +5,12 @@ import { SelectUserId } from '@/app/admin/components/select-user-id'
 
 interface AdminPageProps {
   params: {},
-  searchParams: { [key: string]: string | string[] | undefined },
+  searchParams: {
+    userId?: string
+  },
 }
 
-export default async function AdminPage({ params, searchParams }: AdminPageProps) {
+export default async function AdminPage({ searchParams }: AdminPageProps) {
   const userIds = await getAllUserIds()
   const selectedUserId = searchParams.userId ?? userIds[0] as string
   const chats = await getChats(selectedUserId)

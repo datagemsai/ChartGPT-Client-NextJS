@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 import { IconExternalLink } from '@/components/ui/icons'
+import { useRouter } from 'next/navigation'
 
 export interface UserMenuProps {
   user: Session['user']
@@ -24,6 +25,8 @@ function getUserInitials(name: string) {
 }
 
 export function UserMenu({ user }: UserMenuProps) {
+  const router = useRouter()
+
   return (
     <div className="flex items-center justify-between">
       <DropdownMenu>
@@ -49,6 +52,18 @@ export function UserMenu({ user }: UserMenuProps) {
             <div className="text-xs font-medium">{user?.name}</div>
             <div className="text-xs text-zinc-500">{user?.email}</div>
           </DropdownMenuItem>
+          {user?.role === 'admin' ? (
+            <DropdownMenuItem
+              className="flex-col items-start"
+              onClick={(e) => {
+                e.preventDefault()
+                router.refresh()
+                router.push('/admin')
+              }}
+            >
+              <div className="text-xs font-medium">Admin Page</div>
+            </DropdownMenuItem>
+          ) : null}
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() =>

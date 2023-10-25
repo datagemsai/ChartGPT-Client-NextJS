@@ -8,10 +8,10 @@ export default <Config> {
   chatBotWelcomeMessage: 'Welcome to Finance Chat!',
   chatBotDescription: 'Discover insights with data-driven conversations',
   dataSources: {
-    'bigquery/chartgpt-staging/finance/private_equity': {
-      dataSourceName: 'Private Equity',
-      dataSourceDescription: ``,
-      dataSourceURL: 'bigquery/chartgpt-staging/finance/private_equity',
+    'bigquery/chartgpt-staging/finance/private_banking': {
+      dataSourceName: 'Private Banking',
+      dataSourceDescription: `A synthetic private banking dataset`,
+      dataSourceURL: 'bigquery/chartgpt-staging/finance/private_banking',
       dataProviderName: '',
       dataProviderWebsite: '',
       dataProviderImage: '',

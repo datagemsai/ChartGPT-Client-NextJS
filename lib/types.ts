@@ -26,6 +26,7 @@ export interface Config {
   allowedEmailAddresses?: string[],
   adminEmailDomains?: string[],
   adminEmailAddresses?: string[],
+  publicPaths?: string[],
   headerLogo: string,
   assistantLogo: string,
   chatBotName: string,

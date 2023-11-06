@@ -103,11 +103,22 @@ export const {
     },
     authorized({ request, auth }) {
       const { pathname } = request.nextUrl
-      const protectedPaths = ['/admin']
-      const matchesProtectedPath = protectedPaths.some((path) =>
+
+      const adminPaths = ['/admin']
+      const publicPaths = config?.publicPaths ?? []
+
+      const matchesAdminPath = adminPaths.some((path) =>
         pathname.startsWith(path)
       )
-      if (matchesProtectedPath) {
+      const matchesPublicPath = publicPaths.some((path) =>
+        pathname.startsWith(path)
+      )
+
+      if (matchesPublicPath) {
+        return true
+      }
+
+      if (matchesAdminPath) {
         if (!auth?.user) {
           return NextResponse.redirect('/sign-in')
         }
@@ -115,6 +126,7 @@ export const {
           return new NextResponse(null, { status: 403 })
         }
       }
+
       return !!auth?.user
     }
   },

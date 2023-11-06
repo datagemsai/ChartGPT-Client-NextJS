@@ -4,6 +4,7 @@ export default <Config> {
   kvRestApiUrl: '***REMOVED***',
   kvRestApiToken: '***REMOVED***',
   allowedEmailDomains: ['***REMOVED***', '***REMOVED***'],
+  adminEmailDomains: ['***REMOVED***'],
   headerLogo: '/use_cases/aviation.svg',
   assistantLogo: '/use_cases/aviation.svg',
   chatBotName: 'Airport Chat',

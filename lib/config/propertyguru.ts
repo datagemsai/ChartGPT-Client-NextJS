@@ -19,6 +19,7 @@ export default <Config> {
     'soojin@***REMOVED***',
     'suvro@***REMOVED***',
   ],
+  adminEmailDomains: ['***REMOVED***'],
   headerLogo: '/property_guru/property_guru_horizontal.svg',
   assistantLogo: '/property_guru/property_guru.svg',
   chatBotName: 'PropertyGuru Chat',

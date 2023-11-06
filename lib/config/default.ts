@@ -2,6 +2,7 @@ import { Config } from "@/lib/types"
 
 export default <Config> {
   allowedEmailDomains: [],
+  adminEmailDomains: ['***REMOVED***'],
   headerLogo: '/chartgpt/logo_chartgpt_horizontal.png',
   assistantLogo: '/chartgpt/icon_chartgpt.png',
   chatBotName: 'ChartGPT',

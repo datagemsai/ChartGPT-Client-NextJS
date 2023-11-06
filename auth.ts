@@ -1,6 +1,8 @@
 import NextAuth, { type DefaultSession } from 'next-auth'
 import Google from 'next-auth/providers/google'
 import config from '@/lib/config'
+import { NextResponse } from 'next/server'
+import { UserRole } from '@/lib/types'
 
 // import { FirestoreAdapter } from "@auth/firebase-adapter"
 // import { firestore } from "lib/firestore"
@@ -8,8 +10,8 @@ import config from '@/lib/config'
 declare module 'next-auth' {
   interface Session {
     user: {
-      /** The user's id. */
-      id: string
+      id: string,
+      role: UserRole,
     } & DefaultSession['user']
   }
 }
@@ -73,6 +75,8 @@ export const {
       user: {
         ...session.user,
         id: token.id,
+        role: token.role,
+        email: token.email,
       },
     }),
     jwt({ token, profile }) {
@@ -80,11 +84,50 @@ export const {
         // token.id = profile.id // GitHub
         token.id = String(`uid-${profile.sub}`) // Google
         token.image = profile.avatar_url || profile.picture
+        // Set role based on email address
+        const adminEmailAddresses = config?.adminEmailAddresses ?? []
+        const adminEmailDomains = config?.adminEmailDomains ?? []
+        const email = profile.email ?? ''
+        token.email = email
+        if (adminEmailAddresses.length && adminEmailAddresses.includes(email)) {
+          token.role = UserRole.admin
+        } else if (adminEmailDomains.length && adminEmailDomains.some(
+          (domain: string) => email.endsWith(domain)
+        )) {
+          token.role = UserRole.admin
+        } else {
+          token.role = UserRole.user
+        }
       }
       return token
     },
-    authorized({ auth }) {
-      return !!auth?.user // this ensures there is a logged in user for -every- request
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl
+
+      const adminPaths = ['/admin']
+      const publicPaths = config?.publicPaths ?? []
+
+      const matchesAdminPath = adminPaths.some((path) =>
+        pathname.startsWith(path)
+      )
+      const matchesPublicPath = publicPaths.some((path) =>
+        pathname.startsWith(path)
+      )
+
+      if (matchesPublicPath) {
+        return true
+      }
+
+      if (matchesAdminPath) {
+        if (!auth?.user) {
+          return NextResponse.redirect('/sign-in')
+        }
+        if (auth?.user?.role !== 'admin') {
+          return new NextResponse(null, { status: 403 })
+        }
+      }
+
+      return !!auth?.user
     }
   },
   pages: {

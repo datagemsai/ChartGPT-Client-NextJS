@@ -3,7 +3,6 @@ import { Config } from "@/lib/types"
 export default <Config> {
   allowedEmailDomains: ['metaquants.xyz', '***REMOVED***'],
   adminEmailDomains: ['***REMOVED***'],
-  publicPaths: ['/share'],  // Enable sharing of chats without requiring sign-in
   headerLogo: '/data_providers/metaquants.png',
   assistantLogo: '/data_providers/metaquants.png',
   chatBotName: 'MetaQuants Chat',

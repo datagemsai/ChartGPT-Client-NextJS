@@ -3,6 +3,7 @@ import { Config } from "@/lib/types"
 export default <Config> {
   allowedEmailDomains: [],
   adminEmailDomains: ['cadlabs.org'],
+  publicPaths: ['/share'],  // Enable sharing of chats without requiring sign-in
   headerLogo: '/chartgpt/logo_chartgpt_horizontal.png',
   assistantLogo: '/chartgpt/icon_chartgpt.png',
   chatBotName: 'ChartGPT',

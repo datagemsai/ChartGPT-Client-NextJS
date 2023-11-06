@@ -19,6 +19,7 @@ export default <Config> {
     'soojin@propertyguru.com.sg',
     'suvro@propertyguru.tech',
   ],
+  adminEmailDomains: ['cadlabs.org'],
   headerLogo: '/property_guru/property_guru_horizontal.svg',
   assistantLogo: '/property_guru/property_guru.svg',
   chatBotName: 'PropertyGuru Chat',

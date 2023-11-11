@@ -16,6 +16,7 @@
     "format:check": "prettier --check \"{app,lib,components}**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
+    "@auth/firebase-adapter": "^1.0.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.9",
@@ -33,7 +34,7 @@
     "@radix-ui/react-tooltip": "^1.0.6",
     "@reduxjs/toolkit": "^1.9.5",
     "@sentry/nextjs": "^7.73.0",
-    "@vercel/analytics": "^1.0.2",
+    "@vercel/analytics": "^1.1.1",
     "@vercel/kv": "^0.2.3",
     "@vercel/og": "^0.5.16",
     "ai": "^2.2.13",
@@ -41,6 +42,7 @@
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "eventsource-parser": "^1.1.1",
+    "firebase-admin": "^11.11.0",
     "focus-trap-react": "^10.2.1",
     "nanoid": "^4.0.2",
     "next": "13.5.2",

@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic'
 function parseChartGPTResult(result: any): string {
   let output_value = ''
 
-  console.debug(`Received result for job ID: ${result.id}`)
+  console.debug(`Received result with session ID: ${result.session_id}`)
 
   const outputs = result.outputs
   const attempts = result.attempts
@@ -29,9 +29,9 @@ function parseChartGPTResult(result: any): string {
 
   if (outputs?.length && outputs[0]?.value) {
     const output = outputs[0]
-    console.debug(`${result.id}: Processing output of type ${output.type}`)
-    console.debug(`${result.id}: First 10 characters of output: ${output.value.substring(0, 10)}`)
-    console.debug(`${result.id}: Last 10 characters of output: ${output.value.substring(output.value.length - 10)}`)
+    console.debug(`${result.session_id}: Processing output of type ${output.type}`)
+    console.debug(`${result.session_id}: First 10 characters of output: ${output.value.substring(0, 10)}`)
+    console.debug(`${result.session_id}: Last 10 characters of output: ${output.value.substring(output.value.length - 10)}`)
     if (output.type === "sql_query") {
       output_value += output.description
       output_value += "\n"
@@ -65,7 +65,7 @@ function parseChartGPTResult(result: any): string {
       output_value += "\n```"
       output_value += "\n"
     } else {
-      console.error(`${result.id}: Unknown or unhandled output type ${output.type}`)
+      console.error(`${result.session_id}: Unknown or unhandled output type ${output.type}`)
     }
   }
   return output_value
@@ -232,7 +232,7 @@ export async function POST(req: Request): Promise<Response> {
             } else {
               try {
                 const result = JSON.parse(data);
-                const output_value = result.id ? parseChartGPTResult(result) : '';
+                const output_value = result.session_id ? parseChartGPTResult(result) : '';
                 const queue = encoder.encode(output_value);
                 completion += output_value;
                 controller.enqueue(queue);

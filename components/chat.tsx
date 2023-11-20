@@ -81,7 +81,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         setInput={setInput}
       />
       <div className='hidden md:block'>
-        <ChatWidget
+        {/* <ChatWidget
           id={id}
           isLoading={isLoading}
           stop={stop}
@@ -90,7 +90,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
           messages={messages}
           input={input}
           setInput={setInput}
-        />
+        /> */}
       </div>
       <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>
         <DialogContent>

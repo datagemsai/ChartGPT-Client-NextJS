@@ -3,9 +3,10 @@
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { kv } from '@/lib/kv'
-
 import { auth } from '@/auth'
 import { type Chat } from '@/lib/types'
+import { User, UserRole } from '@/lib/types'
+
 
 export async function getChats(userId?: string | null) {
   if (!userId) {
@@ -44,10 +45,12 @@ export async function saveChat(id: string, userId: string, payload: Chat) {
   return payload
 }
 
-export async function getChat(id: string, userId: string) {
+export async function getChat(id: string, user: User) {
+  const userId = user?.id
+  const userRole = user?.role
   const chat = await kv.hgetall<Chat>(`chat:${id}`)
 
-  if (!chat || (userId && chat.userId !== userId)) {
+  if (!chat || (userRole !== UserRole.admin && (userId && chat.userId !== userId))) {
     return null
   }
 

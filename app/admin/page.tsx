@@ -45,8 +45,8 @@ export default async function AdminPage({ searchParams }: AdminPageProps) {
               {chats.map((chat) => (
                 <div key={chat.id} className="py-2 md:py-4">
                   <a
-                    href={chat.sharePath}
-                    className="block px-4 py-2 md:px-6 md:py-4 rounded-md hover:bg-gray-100"
+                    href={'/chat/' + chat.id}
+                    className="block rounded-md px-4 py-2 hover:bg-gray-100 md:px-6 md:py-4"
                   >
                     <div className="text-lg font-bold">{chat.title}</div>
                     <div className="text-sm text-muted-foreground">

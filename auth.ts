@@ -24,7 +24,6 @@ const googleProvider = Google({
 export const {
   handlers: { GET, POST },
   auth,
-  CSRF_experimental // will be removed in future
 } = NextAuth({
   providers: [
     // GitHub,

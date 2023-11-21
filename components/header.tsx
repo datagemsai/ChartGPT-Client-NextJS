@@ -58,7 +58,7 @@ export async function Header() {
       <div className="absolute inset-0 z-0 flex items-center justify-center">
         {session?.user ? (
           <a href="/">
-            <img src={config.headerLogo} alt="Logo" className="hidden mx-auto h-12 md:block" />
+            <img src={config.headerLogo} alt="Logo" className="mx-auto hidden h-12 md:block" />
           </a>
           ) : null}
       </div>

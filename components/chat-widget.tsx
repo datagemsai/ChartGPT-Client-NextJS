@@ -54,6 +54,7 @@ export function ChatWidget({
                   role: 'user'
                 });
               }}
+              stop={stop}
               input={input}
               setInput={setInput}
               isLoading={isLoading}

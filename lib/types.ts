@@ -43,7 +43,7 @@ export interface User {
   name?: string
   role: UserRole
   image?: string
-  conversations: string[]
+  conversations?: string[]
 }
 
 export enum UserRole {

@@ -7,12 +7,12 @@ import Skeleton from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 
 
-export function ChartGalleryRow() {
-  const Plot = dynamic(() => import('react-plotly.js'), {
-    ssr: false,
-    loading: () => <Skeleton width={600} height={400} />
-  })
+const Plot = dynamic(() => import('react-plotly.js'), {
+  ssr: false,
+  loading: () => <Skeleton width={600} height={400} />
+})
 
+export function ChartGalleryRow() {
   const [items, setItems] = useState<any[]>([])
   const [page, setPage] = useState(1)
   const [hasMore, setHasMore] = useState(true)

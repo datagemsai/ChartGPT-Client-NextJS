@@ -26,6 +26,7 @@ export interface Config {
   allowedEmailAddresses?: string[],
   adminEmailDomains?: string[],
   adminEmailAddresses?: string[],
+  publicPaths?: string[],
   headerLogo: string,
   assistantLogo: string,
   chatBotName: string,
@@ -34,6 +35,15 @@ export interface Config {
   dataSources: {
     [key: string]: DataSource
   }
+}
+
+export interface User {
+  id: string
+  email?: string | null
+  name?: string | null
+  role: UserRole
+  image?: string | null
+  conversations?: string[] | null
 }
 
 export enum UserRole {

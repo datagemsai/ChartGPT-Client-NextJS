@@ -8,48 +8,9 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import { makeStyles } from '@mui/styles';
 
 import config from '@/lib/config'
 import { ChatPanelProps } from '@/components/chat-panel';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: '400px',
-    position: 'fixed',
-    bottom: '2%',
-    right: '2%',
-    zIndex: 1000,
-  },
-  accordian: {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  },
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  content: {
-    flex: 1,
-    overflowY: 'auto',
-    paddingRight: '2%', // To ensure scrollbar doesn't overlap content
-    height: '100%',
-  },
-  footer: {
-    background: '#ffffff',
-    padding: '1%',
-    marginTop: 'auto',
-  },
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'center', // Align items vertically in the center
-  },
-  logo: {
-    maxHeight: '3vh', // Adjust this value based on your needs
-    paddingRight: '8px', // Space between the logo and the text
-  },
-}));
 
 export function ChatWidget({
   id,
@@ -61,31 +22,30 @@ export function ChatWidget({
   setInput,
   messages
 }: ChatPanelProps) {
-  const classes = useStyles();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className={classes.root}>
-      <Accordion className={classes.accordian} expanded={isExpanded} onChange={() => setIsExpanded(!isExpanded)} style={{ height: isExpanded ? '500px' : '50px' }}>
+    <div className="w-96 fixed bottom-2 right-2 z-50">
+      <Accordion className="flex flex-col h-full" expanded={isExpanded} onChange={() => setIsExpanded(!isExpanded)} style={{ height: isExpanded ? '500px' : '50px' }}>
         <AccordionSummary
           expandIcon={<ExpandLessIcon />}
           aria-controls="panel-content"
           id="panel-header"
         >
-        <div className={classes.flexContainer}>
+        <div className="flex items-center">
           <img
             src={config?.assistantLogo}
             alt="Logo"
-            className={classes.logo}
+            className="max-h-[3vh] pr-2"
           />
           <Typography>{config?.chatBotName}</Typography>
         </div>
         </AccordionSummary>
-        <AccordionDetails className={classes.details}>
-          <div className={classes.content}>
+        <AccordionDetails className="flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto pr-2 h-full">
             {/* <EmptyScreen setInput={() => {}} /> */}
           </div>
-          <div className={classes.footer}>
+          <div className="bg-white p-1 mt-auto">
             <PromptForm
               onSubmit={async value => {
                 await append({
@@ -94,6 +54,7 @@ export function ChatWidget({
                   role: 'user'
                 });
               }}
+              stop={stop}
               input={input}
               setInput={setInput}
               isLoading={isLoading}

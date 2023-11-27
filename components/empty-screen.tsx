@@ -10,6 +10,7 @@ import config from '@/lib/config'
 import { AppState } from '@/lib/redux/store'
 import React from 'react'
 
+
 type EmptyScreenProps = {
   dataSource: DataSource
   setInput: UseChatHelpers['setInput']
@@ -39,10 +40,6 @@ class EmptyScreen extends React.Component<EmptyScreenProps> {
     return (
       <div className="mx-auto max-w-2xl px-4">
         <div className="rounded-lg bg-background p-8">
-          {/* <img src="/property_guru.png" alt="Property Guru Logo" className='pb-8' /> */}
-          <h1 className="mb-2 text-lg font-semibold">
-            {config?.chatBotWelcomeMessage}
-          </h1>
           <p className="mb-2 leading-normal text-muted-foreground">
             Start by selecting a data source:
           </p>

@@ -16,7 +16,7 @@ export function ButtonBackHome({ className, ...props }: ButtonProps) {
   const isSignIn = pathname.startsWith('/sign-in')
   
   return !isSignIn ? (
-    <div className="fixed top-20 left-20 z-50 flex items-center justify-center">
+    <div className="fixed left-20 top-20 z-50 flex items-center justify-center">
       <Button
         variant="outline"
         size="icon"

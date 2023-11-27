@@ -37,6 +37,15 @@ export interface Config {
   }
 }
 
+export interface User {
+  id: string
+  email?: string | null
+  name?: string | null
+  role: UserRole
+  image?: string | null
+  conversations?: string[] | null
+}
+
 export enum UserRole {
   user = 'user',
   admin = 'admin',

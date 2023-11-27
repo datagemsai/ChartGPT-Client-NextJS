@@ -16,11 +16,13 @@ import { useRouter } from 'next/navigation'
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
   onSubmit: (value: string) => Promise<void>
+  stop: () => void
   isLoading: boolean
 }
 
 export function PromptForm({
   onSubmit,
+  stop,
   input,
   setInput,
   isLoading
@@ -52,9 +54,10 @@ export function PromptForm({
           <TooltipTrigger asChild>
             <button
               onClick={e => {
+                stop()
                 e.preventDefault()
                 router.refresh()
-                router.push('/')
+                router.push('/chat')
               }}
               className={cn(
                 buttonVariants({ size: 'sm', variant: 'outline' }),

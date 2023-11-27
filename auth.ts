@@ -2,35 +2,37 @@ import NextAuth, { type DefaultSession } from 'next-auth'
 import Google from 'next-auth/providers/google'
 import config from '@/lib/config'
 import { NextResponse } from 'next/server'
-import { UserRole } from '@/lib/types'
+import { User, UserRole } from '@/lib/types'
+// import { MongoDBAdapter } from '@auth/mongodb-adapter'
+// import clientPromise from '@/lib/mongodb'
+// import { createUser } from '@/app/services/user-services'
 
-// import { FirestoreAdapter } from "@auth/firebase-adapter"
-// import { firestore } from "lib/firestore"
 
 declare module 'next-auth' {
   interface Session {
-    user: {
-      id: string,
-      role: UserRole,
-    } & DefaultSession['user']
+    user: User & DefaultSession['user']
   }
 }
 
-const googleProvider = Google({
-  clientId: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET
-})
+if (!process.env.GOOGLE_CLIENT_ID) {
+  throw new Error('Invalid/Missing environment variable: "GOOGLE_CLIENT_ID"')
+}
+if (!process.env.GOOGLE_CLIENT_SECRET) {
+  throw new Error('Invalid/Missing environment variable: "GOOGLE_CLIENT_SECRET"')
+}
 
 export const {
   handlers: { GET, POST },
   auth,
-  CSRF_experimental // will be removed in future
 } = NextAuth({
   providers: [
     // GitHub,
-    googleProvider
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    })
   ],
-  // adapter: FirestoreAdapter(firestore),
+  // adapter: MongoDBAdapter(clientPromise),
   session: {
     strategy: "jwt",
   },
@@ -70,15 +72,17 @@ export const {
       //   return false
       // }
     },
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.id,
-        role: token.role,
-        email: token.email,
-      },
-    }),
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          role: token.role,
+          email: token.email,
+        },
+      }
+    },
     jwt({ token, profile }) {
       if (profile) {
         // token.id = profile.id // GitHub

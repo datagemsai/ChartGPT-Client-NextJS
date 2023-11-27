@@ -56,11 +56,9 @@ export async function Header() {
         </div>
       </div>
       <div className="absolute inset-0 z-0 flex items-center justify-center">
-        {session?.user ? (
-          <a href="/">
-            <img src={config.headerLogo} alt="Logo" className="mx-auto hidden h-12 md:block" />
-          </a>
-          ) : null}
+        <a href="/">
+          <img src={config.headerLogo} alt="Logo" className="mx-auto hidden h-12 md:block" />
+        </a>
       </div>
       <div className="z-10 flex items-center justify-end space-x-2">
         {session?.user ? <DataSourceSelector /> : null}

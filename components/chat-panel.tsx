@@ -75,6 +75,7 @@ export function ChatPanel({
               })
               va.track('submit_query', { chatId: id ?? '', query: value })
             }}
+            stop={stop}
             input={input}
             setInput={setInput}
             isLoading={isLoading}

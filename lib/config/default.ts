@@ -78,21 +78,21 @@ export default <Config> {
         'Plot the number of ERC20 and ERC721 contracts over time.',
       ]
     },
-  },
-  'bigquery/chartgpt-staging/kitesurfing/king_of_the_air': {
-    dataSourceName: 'Red Bull King of the Air',
-    dataSourceDescription: `
-    Explore Red Bull King of the Air data.
-    `,
-    dataSourceURL: 'bigquery/chartgpt-staging/kitesurfing/king_of_the_air',
-    dataProviderName: 'Neverstop Network',
-    dataProviderWebsite: 'https://neverstop.network',
-    dataProviderImage: '',
-    sampleQuestions: [
-      'What data is available?',
-      'Perform exploratory data analysis.',
-      'Plot the number of participants over time.',
-      'What was the highest jump in 2020?',
-    ]
+    'bigquery/chartgpt-staging/kitesurfing/king_of_the_air': {
+      dataSourceName: 'Red Bull King of the Air',
+      dataSourceDescription: `
+      Explore Red Bull King of the Air data.
+      `,
+      dataSourceURL: 'bigquery/chartgpt-staging/kitesurfing/king_of_the_air',
+      dataProviderName: 'Neverstop Network',
+      dataProviderWebsite: 'https://neverstop.network',
+      dataProviderImage: '',
+      sampleQuestions: [
+        'What data is available?',
+        'Perform exploratory data analysis.',
+        'Plot the number of participants over time.',
+        'What was the highest jump in 2020?',
+      ]
+    },
   },
 }

@@ -1,25 +1,11 @@
 import { Config } from "@/lib/types"
 
 export default <Config> {
-  kvRestApiUrl: '***REMOVED***',
-  kvRestApiToken: '***REMOVED***',
-  allowedEmailDomains: [
-    '***REMOVED***',
-    '***REMOVED***',
-    '***REMOVED***',
-    '***REMOVED***',
-    '***REMOVED***',
-  ],
-  allowedEmailAddresses: [
-    '***REMOVED***',
-    '***REMOVED***',
-    // PropertyGuru
-    'arnab@***REMOVED***',
-    'jienmin.soh@***REMOVED***',
-    'soojin@***REMOVED***',
-    'suvro@***REMOVED***',
-  ],
-  adminEmailDomains: ['***REMOVED***'],
+  kvRestApiUrl: '',
+  kvRestApiToken: '',
+  allowedEmailDomains: [],
+  allowedEmailAddresses: [],
+  adminEmailDomains: [],
   headerLogo: '/property_guru/property_guru_horizontal.svg',
   assistantLogo: '/property_guru/property_guru.svg',
   chatBotName: 'PropertyGuru Chat',
@@ -34,7 +20,7 @@ export default <Config> {
     //   `,
     //   dataSourceURL: 'bigquery/chartgpt-staging/real_estate/usa_real_estate_listings',
     //   dataProviderName: 'PropertyGuru',
-    //   dataProviderWebsite: 'https://www.***REMOVED***/',
+    //   dataProviderWebsite: 'https://www.propertyguru.com.sg/',
     //   dataProviderImage: '/property_guru/property_guru.svg',
     //   sampleQuestions: [
     //     'What data is available?',
@@ -53,7 +39,7 @@ export default <Config> {
       `,
       dataSourceURL: 'bigquery/chartgpt-staging/real_estate/usa_real_estate_listings_synthetic',
       dataProviderName: 'PropertyGuru',
-      dataProviderWebsite: 'https://www.***REMOVED***/',
+      dataProviderWebsite: 'https://www.propertyguru.com.sg/',
       dataProviderImage: '/property_guru/property_guru.svg',
       sampleQuestions: [
         'What data is available?',

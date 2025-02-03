@@ -36,7 +36,7 @@ module.exports = withSentryConfig(
 
     // Suppresses source map uploading logs during build
     silent: true,
-    org: "***REMOVED***",
+    org: "",
     project: "chartgpt-react",
   },
   {

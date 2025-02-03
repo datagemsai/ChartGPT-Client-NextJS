@@ -3,9 +3,9 @@ import { Config } from "@/lib/types"
 export default <Config> {
   kvRestApiUrl: '',
   kvRestApiToken: '',
-  allowedEmailDomains: ['***REMOVED***'],
+  allowedEmailDomains: [],
   allowedEmailAddresses: [],
-  adminEmailDomains: ['***REMOVED***'],
+  adminEmailDomains: [],
   adminEmailAddresses: [],
   headerLogo: '',
   assistantLogo: '',

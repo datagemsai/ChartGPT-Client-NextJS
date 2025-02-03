@@ -1,10 +1,10 @@
 import { Config } from "@/lib/types"
 
 export default <Config> {
-  kvRestApiUrl: '***REMOVED***',
-  kvRestApiToken: '***REMOVED***',
-  allowedEmailDomains: ['***REMOVED***', '***REMOVED***'],
-  adminEmailDomains: ['***REMOVED***'],
+  kvRestApiUrl: '',
+  kvRestApiToken: '',
+  allowedEmailDomains: [],
+  adminEmailDomains: [],
   headerLogo: '/use_cases/aviation.svg',
   assistantLogo: '/use_cases/aviation.svg',
   chatBotName: 'Airport Chat',

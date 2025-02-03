@@ -13,7 +13,7 @@ export function FooterText({ className, ...props }: React.ComponentProps<'p'>) {
       {...props}
     >
       Powered by the{' '}
-      <ExternalLink href="https://chartgpt.***REMOVED***">
+      <ExternalLink href="https://datagems.ai">
         ChartGPT API
       </ExternalLink>
       .

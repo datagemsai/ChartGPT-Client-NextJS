@@ -2,7 +2,7 @@ import { Config } from "@/lib/types"
 
 export default <Config> {
   allowedEmailDomains: [],
-  adminEmailDomains: ['***REMOVED***'],
+  adminEmailDomains: [],
   publicPaths: ['/share'],  // Enable sharing of chats without requiring sign-in
   headerLogo: '/chartgpt/logo_chartgpt_horizontal.png',
   assistantLogo: '/chartgpt/icon_chartgpt.png',
@@ -15,7 +15,7 @@ export default <Config> {
       dataSourceDescription: `
       Leverage the MetaQuants NFT Finance Aggregator dataset to gain valuable insights into NFT loan history,
       outstanding loan indicators, and activity on both P2Peer and P2Pool protocols.
-      The dataset currently includes a range of leading protocols, including X2Y2, Pine, BendDAO, ***REMOVED***, Arcade, and JPEGD.
+      The dataset currently includes a range of leading protocols, including X2Y2, Pine, BendDAO, NFTfi, Arcade, and JPEGD.
       `,
       dataSourceURL: 'bigquery/chartgpt-staging/metaquants_nft_finance_aggregator/p2p_and_p2pool_loan_data_borrow',
       dataProviderName: 'MetaQuants',
@@ -24,7 +24,7 @@ export default <Config> {
       sampleQuestions: [
         'What data is available?',
         'Perform exploratory data analysis.',
-        'Plot the average APR for the ***REMOVED*** protocol in the past 6 months.',
+        'Plot the average APR for the NFTfi protocol in the past 6 months.',
         'Plot a bar chart of the USD lending volume for all protocols.',
         'Plot a stacked area chart of the USD lending volume for all protocols.',
       ]
@@ -53,7 +53,7 @@ export default <Config> {
       dataSourceURL: 'bigquery/chartgpt-staging/crypto_ethereum/transactions_sample',
       dataProviderName: 'Google Cloud Public Datasets program',
       dataProviderWebsite: 'https://console.cloud.google.com/marketplace/product/ethereum/crypto-ethereum-blockchain',
-      dataProviderImage: '', // '/data_providers/ethereum.png'
+      dataProviderImage: '',
       sampleQuestions: [
         'What data is available?',
         'Perform exploratory data analysis.',
@@ -71,7 +71,7 @@ export default <Config> {
       dataSourceURL: 'bigquery/chartgpt-staging/crypto_ethereum/contracts',
       dataProviderName: 'Google Cloud Public Datasets program',
       dataProviderWebsite: 'https://console.cloud.google.com/marketplace/product/ethereum/crypto-ethereum-blockchain',
-      dataProviderImage: '', // '/data_providers/ethereum.png'
+      dataProviderImage: '',
       sampleQuestions: [
         'What data is available?',
         'Perform exploratory data analysis.',

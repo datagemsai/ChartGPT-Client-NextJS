@@ -1,11 +1,11 @@
-<a href="https://chat.vercel.ai/">
-  <img alt="Next.js 13 and app template Router-ready AI chatbot." src="https://chat.vercel.ai/opengraph-image.png">
-  <h1 align="center">ChartGPT Chatbot</h1>
-</a>
+# ChartGPT NextJS Client
 
-<p align="center">
-  An open-source AI chatbot app template built with Next.js, the Vercel AI SDK, OpenAI, and Vercel KV.
-</p>
+- An AI agent capable of performing complex data analytics queries to answer natural language questions.
+- Streamed chatbot-style responses and Plotly visualisations.
+- Robust error handling and correction.
+- Developed using OpenAI's API.
+- Accepts Google BigQuery as a data source and capable of multi-table queries.
+- Built with Next.js and deployed with Vercel.
 
 <p align="center">
   <a href="#features"><strong>Features</strong></a> ·
@@ -63,11 +63,3 @@ pnpm dev
 ```
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
-
-## Authors
-
-This library is created by [Vercel](https://vercel.com) and [Next.js](https://nextjs.org) team members, with contributions from:
-
-- Jared Palmer ([@jaredpalmer](https://twitter.com/jaredpalmer)) - [Vercel](https://vercel.com)
-- Shu Ding ([@shuding\_](https://twitter.com/shuding_)) - [Vercel](https://vercel.com)
-- shadcn ([@shadcn](https://twitter.com/shadcn)) - [Contractor](https://shadcn.com)
